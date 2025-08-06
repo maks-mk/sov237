@@ -288,6 +288,37 @@ html {
     letter-spacing: 1px;
 }
 
+.hero-initiative {
+    margin: 32px 0;
+    padding: 24px;
+    background: rgba(88, 166, 255, 0.1);
+    border: 1px solid rgba(88, 166, 255, 0.2);
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+}
+
+.hero-initiative p {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 12px 0;
+    font-size: 1em;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.hero-initiative p:last-child {
+    margin-bottom: 0;
+}
+
+.hero-initiative i {
+    color: var(--accent-color);
+    font-size: 1.1em;
+    width: 20px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
 .cta-button {
     display: inline-flex;
     align-items: center;
@@ -840,6 +871,260 @@ html {
 }
 
 /* ==========================================================================
+   9. Секция программы "Сделаем вместе"
+   ========================================================================== */
+
+.program-content {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+
+.program-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.info-card {
+    background: var(--gradient-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 32px;
+    transition: transform var(--transition-normal), border-color var(--transition-normal);
+}
+
+.info-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent-color);
+}
+
+.info-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.info-header i {
+    color: var(--accent-color);
+    font-size: 1.5em;
+}
+
+.info-header h3 {
+    font-size: 1.4em;
+    color: var(--text-primary);
+}
+
+.info-card p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+.program-stats {
+    display: flex;
+    gap: 32px;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat strong {
+    display: block;
+    font-size: 1.8em;
+    color: var(--accent-color);
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.stat span {
+    font-size: 0.9em;
+    color: var(--text-muted);
+}
+
+.legal-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.legal-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 16px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.legal-list i {
+    color: var(--success-color);
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.criteria-section {
+    background: var(--primary-surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 40px;
+}
+
+.criteria-section h3 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+    color: var(--text-primary);
+    font-size: 1.4em;
+}
+
+.criteria-section i {
+    color: var(--accent-color);
+}
+
+.criteria-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 24px;
+}
+
+.criteria-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    background: var(--secondary-surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    transition: border-color var(--transition-normal);
+}
+
+.criteria-item:hover {
+    border-color: var(--accent-color);
+}
+
+.criteria-item i {
+    color: var(--accent-color);
+    font-size: 1.3em;
+    width: 24px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.criteria-item div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.criteria-item strong {
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 1em;
+}
+
+.criteria-item span {
+    color: var(--text-secondary);
+    font-size: 0.9em;
+}
+
+.financing-info {
+    background: var(--gradient-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 40px;
+}
+
+.financing-info h3 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+    color: var(--text-primary);
+    font-size: 1.4em;
+}
+
+.financing-info i {
+    color: var(--accent-color);
+}
+
+.financing-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.finance-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 24px;
+    background: var(--primary-surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+}
+
+.finance-icon {
+    width: 60px;
+    height: 60px;
+    background: var(--gradient-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5em;
+    flex-shrink: 0;
+}
+
+.finance-details {
+    flex: 1;
+}
+
+.finance-details strong {
+    display: block;
+    color: var(--text-primary);
+    font-size: 1.1em;
+    margin-bottom: 8px;
+}
+
+.finance-details span {
+    color: var(--text-secondary);
+    font-size: 1em;
+    margin-bottom: 12px;
+    display: block;
+}
+
+.finance-bar {
+    width: 100%;
+    height: 8px;
+    background: var(--tertiary-surface-color);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.finance-progress {
+    height: 100%;
+    background: var(--gradient-primary);
+    border-radius: 4px;
+    transition: width 1s ease-in-out;
+}
+
+.total-cost {
+    text-align: center;
+    padding: 20px;
+    background: var(--secondary-surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    font-size: 1.2em;
+    color: var(--accent-color);
+}
+
+/* ==========================================================================
    9. Секция контактов
    ========================================================================== */
 
@@ -1166,6 +1451,21 @@ html {
         gap: 40px;
     }
 
+    .program-info {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .criteria-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .program-stats {
+        justify-content: center;
+        gap: 24px;
+    }
+
     .hero-stats {
         gap: 32px;
     }
@@ -1247,6 +1547,22 @@ html {
     .cta-button {
         padding: 14px 28px;
         font-size: 1em;
+    }
+
+    .hero-initiative {
+        margin: 24px 0;
+        padding: 20px;
+    }
+
+    .hero-initiative p {
+        font-size: 0.95em;
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+    }
+
+    .hero-initiative i {
+        font-size: 1.3em;
     }
 
     /* Секции */
