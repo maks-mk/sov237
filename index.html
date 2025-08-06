@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Реконструкция дорог | г. Шахты, ул. Советская 231-237</title>
+
+    <!-- Подключение новых шрифтов -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Иконки -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fas fa-road"></i>
+                <span>Дороги Шахты</span>
+            </div>
+            <button class="nav-toggle" aria-label="Открыть меню">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="#comparison" class="nav-link">До и После</a></li>
+                <li><a href="#progress" class="nav-link">Прогресс</a></li>
+                <li><a href="#map" class="nav-link">Карта</a></li>
+                <li><a href="#details" class="nav-link">Детали</a></li>
+                <li><a href="#contacts" class="nav-link">Контакты</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="header">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-clipboard-list"></i>
+                    <span>Подготовка к реконструкции</span>
+                </div>
+                <h1>Реконструкция внутриквартальных дорог</h1>
+                <div class="hero-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>г. Шахты, ул. Советская 231-237</span>
+                </div>
+                <p class="hero-description">Современные технологии дорожного строительства для комфорта жителей</p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">5</div>
+                        <div class="stat-label">участков</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">0%</div>
+                        <div class="stat-label">готово</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">2.5</div>
+                        <div class="stat-label">месяца</div>
+                    </div>
+                </div>
+                <a href="#comparison" class="cta-button">
+                    <span>Посмотреть результат</span>
+                    <i class="fas fa-arrow-down"></i>
+                </a>
+            </div>
+        </div>
+        <div class="hero-background">
+            <div class="hero-pattern"></div>
+        </div>
+    </header>
+
+    <main>
+        <section id="comparison">
+            <div class="container">
+                <div class="section-header">
+                    <h2><i class="fas fa-before-after"></i> Трансформация участков</h2>
+                    <p class="section-subtitle">Сравните состояние дорог до и после реконструкции</p>
+                </div>
+                <div class="comparison-grid">
+                    <div class="comparison-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-road"></i> Участок 1</h3>
+                            <span class="status-badge planned">Запланирован</span>
+                        </div>
+                        <div class="image-comparison-slider">
+                            <img src="images/1.jpg" alt="До реконструкции участка 1">
+                            <img src="images/1_1.jpeg" alt="После реконструкции участка 1">
+                        </div>
+                        <div class="card-footer">
+                            <div class="improvement-tags">
+                                <span class="tag">Новое покрытие</span>
+                                <span class="tag">Разметка</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comparison-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-road"></i> Участок 2</h3>
+                            <span class="status-badge planned">Запланирован</span>
+                        </div>
+                        <div class="image-comparison-slider">
+                            <img src="images/2.jpg" alt="До реконструкции участка 2">
+                            <img src="images/2_2.jpeg" alt="После реконструкции участка 2">
+                        </div>
+                        <div class="card-footer">
+                            <div class="improvement-tags">
+                                <span class="tag">Ремонт ям</span>
+                                <span class="tag">Дренаж</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comparison-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-road"></i> Участок 3</h3>
+                            <span class="status-badge planned">Запланирован</span>
+                        </div>
+                        <div class="image-comparison-slider">
+                            <img src="images/3.jpg" alt="До реконструкции участка 3">
+                            <img src="images/3_3.jpeg" alt="После реконструкции участка 3">
+                        </div>
+                        <div class="card-footer">
+                            <div class="improvement-tags">
+                                <span class="tag">Выравнивание</span>
+                                <span class="tag">Бордюры</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comparison-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-road"></i> Участок 4</h3>
+                            <span class="status-badge planned">Запланирован</span>
+                        </div>
+                        <div class="image-comparison-slider">
+                            <img src="images/4.jpg" alt="До реконструкции участка 4">
+                            <img src="images/4_4.jpeg" alt="После реконструкции участка 4">
+                        </div>
+                        <div class="card-footer">
+                            <div class="improvement-tags">
+                                <span class="tag">Основание</span>
+                                <span class="tag">Покрытие</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comparison-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-road"></i> Участок 5</h3>
+                            <span class="status-badge planned">Запланирован</span>
+                        </div>
+                        <div class="image-comparison-slider">
+                            <img src="images/5.jpg" alt="До реконструкции участка 5">
+                            <img src="images/5_5.jpg" alt="После реконструкции участка 5">
+                        </div>
+                        <div class="card-footer">
+                            <div class="improvement-tags">
+                                <span class="tag">Подготовка</span>
+                                <span class="tag">Планировка</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="progress">
+            <div class="container">
+                <div class="section-header">
+                    <h2><i class="fas fa-chart-line"></i> Ход выполнения работ</h2>
+                    <p class="section-subtitle">Отслеживайте прогресс реконструкции в реальном времени</p>
+                </div>
+                <div class="progress-content">
+                    <div class="progress-overview">
+                        <div class="progress-circle">
+                            <svg class="progress-ring" width="200" height="200">
+                                <circle class="progress-ring-circle" stroke="#30363d" stroke-width="8" fill="transparent" r="80" cx="100" cy="100"/>
+                                <circle class="progress-ring-progress" stroke="#58a6ff" stroke-width="8" fill="transparent" r="80" cx="100" cy="100" stroke-dasharray="502.65" stroke-dashoffset="502.65"/>
+                            </svg>
+                            <div class="progress-text">
+                                <span class="progress-percentage">0%</span>
+                                <span class="progress-label">выполнено</span>
+                            </div>
+                        </div>
+                        <div class="progress-details">
+                            <div class="detail-item">
+                                <i class="fas fa-calendar-check"></i>
+                                <div>
+                                    <strong>Начало работ</strong>
+                                    <span>15 июля 2025</span>
+                                </div>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-calendar-alt"></i>
+                                <div>
+                                    <strong>Планируемое завершение</strong>
+                                    <span>30 сентября 2025</span>
+                                </div>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-clock"></i>
+                                <div>
+                                    <strong>Осталось дней</strong>
+                                    <span>77 дней</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline">
+                        <div class="timeline-item active">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <h4>Подготовительные работы</h4>
+                                <p>Проектирование, получение разрешений, подготовка площадки</p>
+                                <span class="timeline-date">15 июля - 5 августа</span>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <h4>Участки 1-2</h4>
+                                <p>Демонтаж старого покрытия, подготовка основания</p>
+                                <span class="timeline-date">6-20 августа</span>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <h4>Участки 3-4</h4>
+                                <p>Укладка нового асфальтового покрытия</p>
+                                <span class="timeline-date">21 августа - 15 сентября</span>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <h4>Участок 5 и финализация</h4>
+                                <p>Завершающие работы, разметка, благоустройство</p>
+                                <span class="timeline-date">16-30 сентября</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="map">
+            <div class="container">
+                <div class="section-header">
+                    <h2><i class="fas fa-map-marked-alt"></i> Расположение объекта</h2>
+                    <p class="section-subtitle">Найдите участки реконструкции на карте</p>
+                </div>
+                <div class="map-container">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2730.219939835302!2d40.20292641589928!3d47.715938179192!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40e1f898f377132b%3A0x8d79a38cb7f7476d!2z0YPQuy4g0KHQvtCy0LXRgtGB0LrQsNGPLCAyMzEsINCo0LDRhdC40YQsINCg0L7RgdGC0L7QstGB0LrQsNGPINC-0LHQuy4sIDM0NjUyMA!5e0!3m2!1sru!2sru!4v1695041195321!5m2!1sru!2sru"
+                        width="100%"
+                        height="450"
+                        style="border:0;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                    <div class="map-overlay">
+                        <div class="location-info">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <strong>г. Шахты, ул. Советская</strong>
+                                <span>дома 231-237</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="details">
+            <div class="container">
+                <div class="section-header">
+                    <h2><i class="fas fa-info-circle"></i> Детали проекта</h2>
+                    <p class="section-subtitle">Подробная информация о реконструкции</p>
+                </div>
+                <div class="details-grid">
+                    <div class="detail-card">
+                        <div class="detail-icon">
+                            <i class="fas fa-question-circle"></i>
+                        </div>
+                        <h3>Что и почему</h3>
+                        <p>В рамках проекта проводится полная замена асфальтового покрытия на внутриквартальных проездах для повышения комфорта и безопасности жителей. Старое покрытие имело многочисленные дефекты, ямы и трещины.</p>
+                    </div>
+                    <div class="detail-card">
+                        <div class="detail-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h3>Материалы</h3>
+                        <p>Используется современный мелкозернистый асфальтобетон типа Б, обладающий высокой износостойкостью и устойчивостью к климатическим изменениям.</p>
+                    </div>
+                    <div class="detail-card">
+                        <div class="detail-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <h3>Подрядчик</h3>
+                        <p>Работы выполняет ООО "ДорСтройСервис", имеющее многолетний опыт в сфере дорожного строительства и современное оборудование.</p>
+                    </div>
+                    <div class="detail-card">
+                        <div class="detail-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <h3>Сроки выполнения</h3>
+                        <p>Начало работ - 15 июля 2025 г. Планируемое завершение - 30 сентября 2025 г. Общая продолжительность проекта составляет 2.5 месяца.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacts">
+            <div class="container">
+                <div class="section-header">
+                    <h2><i class="fas fa-comments"></i> Обратная связь</h2>
+                    <p class="section-subtitle">Свяжитесь с нами по любым вопросам</p>
+                </div>
+                <div class="contacts-content">
+                    <div class="contact-card">
+                        <div class="contact-header">
+                            <i class="fas fa-headset"></i>
+                            <h3>Остались вопросы?</h3>
+                        </div>
+                        <p>Мы готовы ответить на все ваши вопросы о ходе реконструкции и предоставить дополнительную информацию.</p>
+                        <div class="contact-methods">
+                            <a href="mailto:roadfix@example.com" class="contact-method">
+                                <i class="fas fa-envelope"></i>
+                                <div>
+                                    <strong>Email</strong>
+                                    <span>roadfix@example.com</span>
+                                </div>
+                            </a>
+                            <a href="https://t.me/roadfix_bot" target="_blank" class="contact-method">
+                                <i class="fab fa-telegram"></i>
+                                <div>
+                                    <strong>Telegram</strong>
+                                    <span>@roadfix_bot</span>
+                                </div>
+                            </a>
+                            <div class="contact-method">
+                                <i class="fas fa-phone"></i>
+                                <div>
+                                    <strong>Телефон</strong>
+                                    <span>+7 (863) 123-45-67</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feedback-form">
+                        <h3>Быстрая обратная связь</h3>
+                        <form class="contact-form">
+                            <div class="form-group">
+                                <input type="text" placeholder="Ваше имя" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" placeholder="Email" required>
+                            </div>
+                            <div class="form-group">
+                                <textarea placeholder="Ваш вопрос или предложение" rows="4" required></textarea>
+                            </div>
+                            <button type="submit" class="submit-btn">
+                                <i class="fas fa-paper-plane"></i>
+                                Отправить сообщение
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-brand">
+                        <i class="fas fa-road"></i>
+                        <span>Дороги Шахты</span>
+                    </div>
+                    <p>Современные технологии дорожного строительства для комфорта жителей</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Навигация</h4>
+                    <ul>
+                        <li><a href="#comparison">До и После</a></li>
+                        <li><a href="#progress">Прогресс</a></li>
+                        <li><a href="#map">Карта</a></li>
+                        <li><a href="#details">Детали</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> roadfix@example.com</li>
+                        <li><i class="fab fa-telegram"></i> @roadfix_bot</li>
+                        <li><i class="fas fa-phone"></i> +7 (863) 123-45-67</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Следите за обновлениями</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+                        <a href="#" aria-label="VKontakte"><i class="fab fa-vk"></i></a>
+                        <a href="#" aria-label="Одноклассники"><i class="fab fa-odnoklassniki"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Проект реконструкции дорог г. Шахты. Все права защищены.</p>
+                <p class="footer-update">Последнее обновление: <span id="last-update">6 августа 2025</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Кнопка "Наверх" -->
+    <button class="scroll-to-top" aria-label="Наверх">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
