@@ -434,6 +434,12 @@ html {
     border: 1px solid rgba(88, 166, 255, 0.3);
 }
 
+.status-badge.pending {
+    background: rgba(124, 58, 237, 0.2);
+    color: #a855f7;
+    border: 1px solid rgba(124, 58, 237, 0.3);
+}
+
 .card-footer {
     padding: 20px 24px;
     background: var(--primary-surface-color);
@@ -1128,6 +1134,34 @@ html {
     border-radius: 12px;
     font-size: 1.2em;
     color: var(--accent-color);
+    margin-bottom: 24px;
+}
+
+.important-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px;
+    background: rgba(218, 54, 51, 0.1);
+    border: 1px solid rgba(218, 54, 51, 0.3);
+    border-radius: 12px;
+    color: var(--text-primary);
+}
+
+.important-notice i {
+    color: var(--danger-color);
+    font-size: 1.2em;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.important-notice p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+.important-notice strong {
+    color: var(--danger-color);
 }
 
 /* ==========================================================================
