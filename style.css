@@ -476,7 +476,7 @@ html {
 .image-comparison-slider {
     position: relative;
     width: 100%;
-    height: 350px;
+    height: 450px;
     overflow: hidden;
     background: #000;
     border-radius: 0;
@@ -488,6 +488,7 @@ html {
     height: 100%;
     display: block;
     object-fit: cover;
+    object-position: center;
     transition: transform var(--transition-normal);
 }
 
@@ -1659,7 +1660,7 @@ html {
     }
 
     .image-comparison-slider {
-        height: 280px;
+        height: 360px;
     }
 
     /* Прогресс */
@@ -1788,7 +1789,7 @@ html {
     }
 
     .image-comparison-slider {
-        height: 240px;
+        height: 300px;
     }
 
     .detail-card,
