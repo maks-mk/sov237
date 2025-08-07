@@ -60,6 +60,15 @@ body {
     padding: 0 24px;
 }
 
+.project-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.project-link:hover {
+    text-decoration: underline; /* Подчеркивание при наведении для визуальной обратной связи */
+}
+
 h1, h2, h3, h4 {
     font-family: var(--font-headings);
     color: #ffffff;
@@ -1567,7 +1576,7 @@ html {
         padding: 120px 0 80px;
         min-height: 90vh;
     }
-
+	
     .header h1 {
         font-size: 2.5em;
         line-height: 1.1;
