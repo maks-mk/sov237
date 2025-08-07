@@ -473,10 +473,11 @@ html {
    5. Слайдер сравнения изображений
    ========================================================================== */
 
+
 .image-comparison-slider {
     position: relative;
     width: 100%;
-    height: 450px;
+    height: 480px;
     overflow: hidden;
     background: #000;
     border-radius: 0;
@@ -1797,4 +1798,66 @@ html {
     .feedback-form {
         padding: 20px;
     }
+}
+
+/* ========================================================================== 
+   13. Улучшения доступности и UX
+   ========================================================================== */
+
+/* Корректный отступ якорной прокрутки относительно фиксированного навбара */
+section {
+    scroll-margin-top: 90px;
+}
+
+/* Активный пункт меню */
+.nav-link.active {
+    color: var(--accent-color);
+}
+
+.nav-link.active::after {
+    width: 100%;
+}
+
+/* Тень у навбара при прокрутке */
+.navbar.scrolled {
+    background: rgba(13, 17, 23, 0.98);
+    box-shadow: var(--shadow-md);
+}
+
+/* Стили для клавиатурной навигации */
+.nav-link:focus-visible,
+.cta-button:focus-visible,
+.contact-method:focus-visible,
+.submit-btn:focus-visible,
+.scroll-to-top:focus-visible,
+.nav-toggle:focus-visible,
+.contact-form input:focus-visible,
+.contact-form textarea:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(88, 166, 255, 0.15);
+}
+
+/* Учет предпочитаемого режима reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+
+    .timeline-item.active .timeline-marker {
+        animation: none !important;
+    }
+}
+
+/* Подсветка выделения текста в фирменном цвете */
+::selection {
+    background: rgba(88, 166, 255, 0.25);
+    color: #ffffff;
+}
+
+/* Единый цвет акцента для элементов форм */
+:root {
+    accent-color: var(--accent-color);
 }

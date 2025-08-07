@@ -212,7 +212,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 9. Параллакс эффект для hero секции ---
     const heroBackground = document.querySelector('.hero-background');
-    if (heroBackground) {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (heroBackground && !prefersReducedMotion.matches) {
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
             const rate = scrolled * -0.5;
@@ -220,7 +221,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 10. Ленивая загрузка изображений ---
+    // --- 10. Ленивая загрузка изображений (через атрибут) ---
+    document.querySelectorAll('img:not([loading])').forEach(img => {
+        img.loading = 'lazy';
+    });
+
+    // --- 10b. Ленивая загрузка изображений по data-src (fallback) ---
     const images = document.querySelectorAll('img[data-src]');
     const imageObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
@@ -234,4 +240,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     images.forEach(img => imageObserver.observe(img));
+
+    // --- 11. Тень навбара при прокрутке ---
+    const navbar = document.querySelector('.navbar');
+    if (navbar) {
+        const toggleNavbarShadow = () => {
+            if (window.pageYOffset > 0) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        };
+        toggleNavbarShadow();
+        window.addEventListener('scroll', toggleNavbarShadow);
+    }
+
 });
