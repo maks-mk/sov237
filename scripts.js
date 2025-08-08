@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (progressRing) {
         const radius = progressRing.r.baseVal.value;
         const circumference = radius * 2 * Math.PI;
-        const progress = 0; // 0% прогресса - работы только начинаются
+        const progress = 5; // 5% прогресса - работы только начинаются
 
         progressRing.style.strokeDasharray = `${circumference} ${circumference}`;
         progressRing.style.strokeDashoffset = circumference;
@@ -165,24 +165,53 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 7. Обработка формы обратной связи ---
     const contactForm = document.querySelector('.contact-form');
     if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
+        contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            // Здесь можно добавить отправку данных на сервер
-            const formData = new FormData(contactForm);
+            const name = document.querySelector('#contact-name')?.value?.trim() || '';
+            const email = document.querySelector('#contact-email')?.value?.trim() || '';
+            const message = document.querySelector('#contact-message')?.value?.trim() || '';
 
-            // Показываем уведомление об успешной отправке
             const submitBtn = contactForm.querySelector('.submit-btn');
             const originalText = submitBtn.innerHTML;
 
-            submitBtn.innerHTML = '<i class="fas fa-check"></i> Отправлено!';
-            submitBtn.style.background = 'var(--success-color)';
+            try {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Отправка...';
 
-            setTimeout(() => {
-                submitBtn.innerHTML = originalText;
-                submitBtn.style.background = '';
+                const response = await fetch('https://sov237-backend.onrender.com/api/contact', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name, email, message })
+                });
+
+                const data = await response.json().catch(() => ({}));
+
+                if (!response.ok) {
+                    throw new Error(data?.error || 'Ошибка отправки. Попробуйте позже.');
+                }
+
+                submitBtn.innerHTML = '<i class="fas fa-check"></i> Отправлено!';
+                submitBtn.style.background = 'var(--success-color)';
                 contactForm.reset();
-            }, 3000);
+
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.style.background = '';
+                }, 3000);
+            } catch (err) {
+                submitBtn.innerHTML = '<i class="fas fa-triangle-exclamation"></i> Ошибка';
+                submitBtn.style.background = 'var(--danger-color)';
+                alert(err.message || 'Не удалось отправить сообщение');
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.style.background = '';
+                }, 3000);
+            } finally {
+                submitBtn.disabled = false;
+            }
         });
     }
 
