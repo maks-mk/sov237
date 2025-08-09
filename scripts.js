@@ -1,4 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- 0. База API и тема ---
+    const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+        ? 'http://localhost:8000'
+        : 'https://sov237-backend.onrender.com';
+
+    const rootEl = document.documentElement;
+    const themeMeta = document.querySelector('#theme-color-meta');
+    const savedTheme = localStorage.getItem('theme');
+    const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+    const initialTheme = savedTheme || (prefersLight ? 'light' : 'dark');
+    if (initialTheme === 'light') {
+        rootEl.setAttribute('data-theme', 'light');
+        if (themeMeta) themeMeta.setAttribute('content', '#ffffff');
+    }
+
     // --- 1. Мобильная навигация ---
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('.nav-menu');
@@ -143,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (progressRing) {
         const radius = progressRing.r.baseVal.value;
         const circumference = radius * 2 * Math.PI;
-        const progress = 5; // 5% прогресса - работы только начинаются
+        const progress = 5; // 5% прогресса — работы только начинаются
 
         progressRing.style.strokeDasharray = `${circumference} ${circumference}`;
         progressRing.style.strokeDashoffset = circumference;
@@ -179,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 submitBtn.disabled = true;
                 submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Отправка...';
 
-                const response = await fetch('https://sov237-backend.onrender.com/api/contact', {
+                const response = await fetch(`${API_BASE}/api/contact`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -211,6 +226,43 @@ document.addEventListener('DOMContentLoaded', () => {
                 }, 3000);
             } finally {
                 submitBtn.disabled = false;
+            }
+        });
+    }
+
+    // --- 7b. Обработка формы поддержки ---
+    const supportForm = document.querySelector('#support-form');
+    if (supportForm) {
+        supportForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const form = e.currentTarget;
+            const name = document.querySelector('#support-name')?.value?.trim() || '';
+            const email = document.querySelector('#support-email')?.value?.trim() || '';
+            const message = document.querySelector('#support-message')?.value?.trim() || '';
+            const consent = document.querySelector('#support-consent')?.checked;
+            if (!consent) {
+                showToast('Поставьте галочку согласия на обработку персональных данных');
+                return;
+            }
+            const btn = form.querySelector('.submit-btn');
+            const original = btn.innerHTML;
+            try {
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Отправка...';
+                const response = await fetch(`${API_BASE}/api/contact`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, message: `[Поддержка] ${message}` })
+                });
+                const data = await response.json().catch(() => ({}));
+                if (!response.ok) throw new Error(data?.error || 'Ошибка отправки. Попробуйте позже.');
+                showToast('Спасибо за поддержку!');
+                form.reset();
+            } catch (err) {
+                showToast(err.message || 'Не удалось отправить сообщение', true);
+            } finally {
+                btn.innerHTML = original;
+                btn.disabled = false;
             }
         });
     }
@@ -284,4 +336,37 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('scroll', toggleNavbarShadow);
     }
 
+    // --- 12. Переключение темы ---
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            const isLight = rootEl.getAttribute('data-theme') === 'light';
+            if (isLight) {
+                rootEl.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'dark');
+                if (themeMeta) themeMeta.setAttribute('content', '#0d1117');
+            } else {
+                rootEl.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+                if (themeMeta) themeMeta.setAttribute('content', '#ffffff');
+            }
+        });
+    }
+
+    // --- 13. Toast helper ---
+    function showToast(text, isError = false) {
+        const toast = document.getElementById('toast');
+        if (!toast) return;
+        toast.textContent = text;
+        toast.style.borderColor = isError ? 'var(--danger-color)' : 'var(--border-color)';
+        toast.classList.add('show');
+        clearTimeout(showToast._timer);
+        showToast._timer = setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    // --- 14. Регистрация сервис-воркера для PWA ---
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js').catch(() => {});
+    }
+    
 });

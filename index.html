@@ -3,8 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#0d1117">
+    <meta name="theme-color" content="#0d1117" id="theme-color-meta">
     <meta name="color-scheme" content="dark">
+    <meta name="description" content="Инициативный проект по реконструкции внутриквартальных дорог в г. Шахты, ул. Советская 231–237. Цели, статус, визуализации, карта и способы поддержать проект.">
+    <link rel="manifest" href="manifest.webmanifest">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Реконструкция дорог | г. Шахты, ул. Советская 231–237">
+    <meta property="og:description" content="Инициативный проект жителей: визуализации до/после, сроки, карта, документы и поддержка.">
+    <meta property="og:image" content="images/1.jpg">
+    <meta property="og:locale" content="ru_RU">
+    <meta name="twitter:card" content="summary_large_image">
     <title>Реконструкция дорог | г. Шахты, ул. Советская 231-237</title>
 
     <!-- Подключение новых шрифтов -->
@@ -18,6 +26,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <a href="#main" class="skip-link">Перейти к содержимому</a>
     <!-- Навигация -->
     <nav class="navbar">
         <div class="container">
@@ -31,13 +40,19 @@
                 <span></span>
             </button>
             <ul class="nav-menu">
+                <li><a href="#support" class="nav-link">Поддержать</a></li>
                 <li><a href="#comparison" class="nav-link">До и После</a></li>
                 <li><a href="#status" class="nav-link">Статус</a></li>
                 <li><a href="#map" class="nav-link">Карта</a></li>
                 <li><a href="#details" class="nav-link">Детали</a></li>
                 <li><a href="#program" class="nav-link">Программа</a></li>
+                <li><a href="#news" class="nav-link">Новости</a></li>
+                <li><a href="#faq" class="nav-link">FAQ</a></li>
                 <li><a href="#contacts" class="nav-link">Контакты</a></li>
             </ul>
+            <button class="theme-toggle" aria-label="Переключить тему" title="Переключить тему" id="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </button>
         </div>
     </nav>
 
@@ -74,8 +89,8 @@
             <p><i class="fas fa-users"></i> Проект выдвинут инициативной группой жителей; идет сбор подписей и подготовка документов</p>
             <p><i class="fas fa-award"></i> Участвует в конкурсном отборе программы "Сделаем вместе" на 2025 год</p>
         </div>
-        <a href="#comparison" class="cta-button">
-            <span>Посмотреть планируемый результат</span>
+        <a href="#support" class="cta-button">
+            <span>Поддержать проект</span>
             <i class="fas fa-arrow-down"></i>
         </a>
     </div>
@@ -85,7 +100,58 @@
         </div>
     </header>
 
-    <main>
+    <main id="main">
+        <section id="support">
+            <div class="container">
+                <div class="section-header">
+                    <h2><i class="fas fa-hand-holding-heart"></i> Поддержите проект</h2>
+                    <p class="section-subtitle">Ваша подпись и обратная связь помогают проекту пройти конкурсный отбор</p>
+                </div>
+                <div class="support-grid">
+                    <div class="support-card">
+                        <div class="support-header">
+                            <i class="fas fa-user-check"></i>
+                            <h3>Оставьте подпись</h3>
+                        </div>
+                        <p>Укажите имя и email. Мы учтём вашу поддержку при подаче документов и свяжемся при необходимости.</p>
+                        <form id="support-form" class="support-form" novalidate>
+                            <input type="hidden" name="formType" value="support">
+                            <div class="form-group">
+                                <label for="support-name">Имя</label>
+                                <input type="text" name="name" id="support-name" placeholder="Ваше имя" autocomplete="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="support-email">Email</label>
+                                <input type="email" name="email" id="support-email" placeholder="Email" autocomplete="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="support-message">Комментарий (необязательно)</label>
+                                <textarea name="message" id="support-message" placeholder="Короткий комментарий" rows="3"></textarea>
+                            </div>
+                            <div class="form-agreement">
+                                <input type="checkbox" id="support-consent" required>
+                                <label for="support-consent">Согласен(на) на обработку персональных данных</label>
+                            </div>
+                            <button type="submit" class="submit-btn">
+                                <i class="fas fa-pen"></i>
+                                Поддержать проект
+                            </button>
+                        </form>
+                    </div>
+                    <div class="support-stats">
+                        <div class="stat-panel">
+                            <div class="stat-number">150+</div>
+                            <div class="stat-label">подписей уже собрано</div>
+                        </div>
+                        <ul class="benefits-list">
+                            <li><i class="fas fa-check"></i> Прозрачная информация о статусе</li>
+                            <li><i class="fas fa-check"></i> Соответствие региональной программе</li>
+                            <li><i class="fas fa-check"></i> Улучшение безопасности и доступности</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
         <section id="comparison">
             <div class="container">
                 <div class="section-header">
@@ -509,6 +575,55 @@
             </div>
         </section>
 
+        <section id="news">
+            <div class="container">
+                <div class="section-header">
+                    <h2><i class="fas fa-newspaper"></i> Новости</h2>
+                    <p class="section-subtitle">Коротко о прогрессе и ближайших шагах</p>
+                </div>
+                <div class="news-grid">
+                    <article class="news-card">
+                        <div class="news-meta"><i class="fas fa-calendar-alt"></i> 06.08.2025</div>
+                        <h3>Старт сбора подписей</h3>
+                        <p>Сформирована инициативная группа, размещены визуализации и открыта форма обратной связи.</p>
+                    </article>
+                    <article class="news-card">
+                        <div class="news-meta"><i class="fas fa-calendar-alt"></i> 20.08.2025</div>
+                        <h3>Подготовка документов</h3>
+                        <p>Идёт уточнение смет и согласование перечня работ по участкам 1–8.</p>
+                    </article>
+                    <article class="news-card">
+                        <div class="news-meta"><i class="fas fa-calendar-alt"></i> 10.09.2025</div>
+                        <h3>Муниципальные консультации</h3>
+                        <p>Проведены встречи с администрацией по условиям участия в программе «Сделаем вместе».</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq">
+            <div class="container">
+                <div class="section-header">
+                    <h2><i class="fas fa-circle-question"></i> Частые вопросы</h2>
+                    <p class="section-subtitle">Если не нашли ответ — напишите нам через форму</p>
+                </div>
+                <div class="faq-list">
+                    <details>
+                        <summary><i class="fas fa-question"></i> Что даст проект жителям?</summary>
+                        <div class="answer">Снижение износа автомобилей, безопасность, доступность для колясок и спецтехники, повышение качества среды.</div>
+                    </details>
+                    <details>
+                        <summary><i class="fas fa-question"></i> Как учитываются подписи?</summary>
+                        <div class="answer">Счётчик обновляется по мере поступления обращений и фиксируется в заявочной документации.</div>
+                    </details>
+                    <details>
+                        <summary><i class="fas fa-question"></i> Когда начнутся работы?</summary>
+                        <div class="answer">При победе в конкурсном отборе реализация предусмотрена в 2026 году.</div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
         <section id="contacts">
             <div class="container">
                 <div class="section-header">
@@ -624,6 +739,9 @@
     <button class="scroll-to-top" aria-label="Наверх">
         <i class="fas fa-chevron-up"></i>
     </button>
+
+    <!-- Toast -->
+    <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
 
     <script src="scripts.js"></script>
 </body>

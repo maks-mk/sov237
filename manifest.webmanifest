@@ -1,0 +1,15 @@
+{
+  "name": "Дороги Шахты — Советская 231–237",
+  "short_name": "Дороги Шахты",
+  "start_url": "index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0d1117",
+  "theme_color": "#0d1117",
+  "lang": "ru",
+  "icons": [
+    { "src": "images/1.jpg", "sizes": "512x512", "type": "image/jpeg", "purpose": "any" }
+  ]
+}
+
+
