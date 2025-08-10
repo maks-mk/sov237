@@ -111,6 +111,25 @@ document.addEventListener('DOMContentLoaded', () => {
         document.addEventListener('touchmove', onDrag, { passive: false });
     });
 
+    // --- 3b. Показать ещё участки ---
+    const showMoreBtn = document.getElementById('show-more');
+    const moreSection = document.getElementById('comparison-more');
+    if (showMoreBtn && moreSection) {
+        moreSection.setAttribute('hidden', '');
+        showMoreBtn.addEventListener('click', () => {
+            const expanded = showMoreBtn.getAttribute('aria-expanded') === 'true';
+            if (expanded) {
+                moreSection.setAttribute('hidden', '');
+                showMoreBtn.setAttribute('aria-expanded', 'false');
+                showMoreBtn.innerHTML = '<i class="fas fa-plus"></i> Показать ещё участки';
+            } else {
+                moreSection.removeAttribute('hidden');
+                showMoreBtn.setAttribute('aria-expanded', 'true');
+                showMoreBtn.innerHTML = '<i class="fas fa-minus"></i> Скрыть дополнительные участки';
+            }
+        });
+    }
+
     // --- 4. Анимация появления секций при скролле ---
     const sections = document.querySelectorAll('section');
 
