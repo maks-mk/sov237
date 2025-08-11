@@ -172,28 +172,76 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 6. Анимация прогресс-кольца ---
+    // --- 6. Анимация прогресс-кольца (совместимость с мобильными) ---
     const progressRing = document.querySelector('.progress-ring-progress');
+    const progressTarget = document.querySelector('.progress-ring') || document.querySelector('.progress-circle');
+    const progressTextEl = document.querySelector('.progress-percentage');
+    const progressCircleEl = document.querySelector('.progress-circle');
     if (progressRing) {
-        const radius = progressRing.r.baseVal.value;
-        const circumference = radius * 2 * Math.PI;
-        const progress = 5; // 5% прогресса — работы только начинаются
+        const defaultProgress = 15; // дефолт для разработки
+        const configured = parseFloat(
+            (progressCircleEl && progressCircleEl.dataset && progressCircleEl.dataset.progress) ||
+            (progressTextEl && (progressTextEl.textContent || '').replace('%','')) ||
+            `${defaultProgress}`
+        );
+        const progress = Number.isFinite(configured) ? configured : defaultProgress;
 
-        progressRing.style.strokeDasharray = `${circumference} ${circumference}`;
-        progressRing.style.strokeDashoffset = circumference;
-
-        // Анимация при появлении в viewport
-        const progressObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const offset = circumference - (progress / 100) * circumference;
-                    progressRing.style.strokeDashoffset = offset;
-                    progressObserver.unobserve(entry.target);
-                }
+        const applyProgress = (percent) => {
+            const safe = Math.max(0, Math.min(100, percent));
+            const normLen = parseFloat(progressRing.getAttribute('pathLength') || '0');
+            if (normLen > 0) {
+                // Нормализованная длина (pathLength=100)
+                progressRing.style.strokeDasharray = '100';
+                progressRing.style.strokeDashoffset = '100';
+                const offset = 100 - safe;
+                requestAnimationFrame(() => {
+                    progressRing.style.strokeDashoffset = `${offset}`;
+                    if (progressTextEl) progressTextEl.textContent = `${Math.round(safe)}%`;
+                });
+                return;
+            }
+            // Fallback: реальная длина окружности
+            const radius = parseFloat(progressRing.getAttribute('r')) || (progressRing.r && progressRing.r.baseVal.value) || 80;
+            const circumference = radius * 2 * Math.PI;
+            progressRing.style.strokeDasharray = `${circumference} ${circumference}`;
+            progressRing.style.strokeDashoffset = `${circumference}`;
+            const offset = circumference - (safe / 100) * circumference;
+            requestAnimationFrame(() => {
+                progressRing.style.strokeDashoffset = `${offset}`;
+                if (progressTextEl) progressTextEl.textContent = `${Math.round(safe)}%`;
             });
-        });
+        };
 
-        progressObserver.observe(progressRing);
+        const isInViewport = (el) => {
+            const rect = (el || progressRing).getBoundingClientRect();
+            return rect.top < window.innerHeight && rect.bottom > 0;
+        };
+
+        // Если поддерживается IO, наблюдаем за SVG/контейнером; иначе применяем сразу
+        if ('IntersectionObserver' in window && progressTarget) {
+            const progressObserver = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        applyProgress(progress);
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            progressObserver.observe(progressTarget);
+
+            // На случай, если элемент уже в вьюпорте на мобильных — применяем сразу
+            if (isInViewport(progressTarget)) {
+                applyProgress(progress);
+            }
+        } else {
+            applyProgress(progress);
+        }
+
+        // Резервный триггер на мобильных (если IO не сработал)
+        setTimeout(() => {
+            if (parseFloat(progressRing.style.strokeDashoffset || '0') === 0) return; // уже применено
+            if (isInViewport(progressTarget)) applyProgress(progress);
+        }, 800);
     }
 
     // --- 7. Обработка формы обратной связи ---

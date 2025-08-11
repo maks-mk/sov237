@@ -1888,8 +1888,8 @@ html {
     }
 
     .progress-circle {
-        width: 140px;
-        height: 140px;
+        width: 200px;
+        height: 200px;
         margin: 0 auto;
         display: flex;
         align-items: center;
@@ -1900,6 +1900,11 @@ html {
         width: 100%;
         height: 100%;
     }
+	.progress-ring-progress {
+        stroke-width: 6; /* Увеличиваем ширину линии */
+        stroke: var(--accent-color); /* Цвет дуги, например #58a6ff */
+        filter: drop-shadow(0 0 3px var(--accent-glow)); /* Опционально: тень для контраста */
+	}
 
     .progress-text {
         position: absolute;
@@ -1943,6 +1948,16 @@ html {
     .contact-card,
     .feedback-form {
         padding: 20px;
+    }
+	.progress-circle {
+        width: 180px; /* Уменьшаем для очень маленьких экранов */
+        height: 180px;
+    }
+    .progress-ring-progress {
+        stroke-width: 5; /* Чуть тоньше, чтобы соответствовать пропорциям */
+    }
+    .progress-percentage {
+        font-size: 1.6em; /* Уменьшаем текст для маленьких экранов */
     }
 }
 
