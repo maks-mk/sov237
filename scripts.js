@@ -299,8 +299,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 7b. Система голосования (статичные данные) ---
     // ИЗМЕНЯЙТЕ ЭТИ ЦИФРЫ ДЛЯ ОБНОВЛЕНИЯ ГОЛОСОВ:
-    const VOTES_FOR = 245;      // Голоса "За проект"
-    const VOTES_AGAINST = 67;   // Голоса "Против проекта"
+    const VOTES_FOR = 273;      // Голоса "За проект"
+    const VOTES_AGAINST = 38;   // Голоса "Против проекта"
     
     // Функция для обновления отображения голосов
     function updateVotingDisplay() {
