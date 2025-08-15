@@ -297,42 +297,32 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 7b. Обработка формы поддержки ---
-    const supportForm = document.querySelector('#support-form');
-    if (supportForm) {
-        supportForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const form = e.currentTarget;
-            const name = document.querySelector('#support-name')?.value?.trim() || '';
-            const email = document.querySelector('#support-email')?.value?.trim() || '';
-            const message = document.querySelector('#support-message')?.value?.trim() || '';
-            const consent = document.querySelector('#support-consent')?.checked;
-            if (!consent) {
-                showToast('Поставьте галочку согласия на обработку персональных данных');
-                return;
-            }
-            const btn = form.querySelector('.submit-btn');
-            const original = btn.innerHTML;
-            try {
-                btn.disabled = true;
-                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Отправка...';
-                const response = await fetch(`${API_BASE}/api/contact`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, email, message: `[Поддержка] ${message}` })
-                });
-                const data = await response.json().catch(() => ({}));
-                if (!response.ok) throw new Error(data?.error || 'Ошибка отправки. Попробуйте позже.');
-                showToast('Спасибо за поддержку!');
-                form.reset();
-            } catch (err) {
-                showToast(err.message || 'Не удалось отправить сообщение', true);
-            } finally {
-                btn.innerHTML = original;
-                btn.disabled = false;
-            }
-        });
+    // --- 7b. Система голосования (статичные данные) ---
+    // ИЗМЕНЯЙТЕ ЭТИ ЦИФРЫ ДЛЯ ОБНОВЛЕНИЯ ГОЛОСОВ:
+    const VOTES_FOR = 245;      // Голоса "За проект"
+    const VOTES_AGAINST = 67;   // Голоса "Против проекта"
+    
+    // Функция для обновления отображения голосов
+    function updateVotingDisplay() {
+        const totalVotes = VOTES_FOR + VOTES_AGAINST;
+        const supportPercentage = totalVotes > 0 ? ((VOTES_FOR / totalVotes) * 100).toFixed(1) : 0;
+        
+        // Обновляем числа
+        document.getElementById('votes-for').textContent = VOTES_FOR;
+        document.getElementById('votes-against').textContent = VOTES_AGAINST;
+        document.getElementById('total-votes').textContent = totalVotes;
+        document.getElementById('support-percentage').textContent = supportPercentage + '%';
+        
+        // Обновляем прогресс-бары
+        const forProgress = totalVotes > 0 ? (VOTES_FOR / totalVotes) * 100 : 0;
+        const againstProgress = totalVotes > 0 ? (VOTES_AGAINST / totalVotes) * 100 : 0;
+        
+        document.getElementById('progress-for').style.width = forProgress + '%';
+        document.getElementById('progress-against').style.width = againstProgress + '%';
     }
+    
+    // Инициализируем отображение при загрузке
+    updateVotingDisplay();
 
     // --- 8. Активная навигация при скролле ---
     const navbarLinks = document.querySelectorAll('.nav-link');

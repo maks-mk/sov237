@@ -41,7 +41,7 @@
                 <span></span>
             </button>
             <ul class="nav-menu">
-                <li><a href="#support" class="nav-link">Поддержать</a></li>
+                <li><a href="#voting" class="nav-link">Голосование</a></li>
                 <li><a href="#comparison" class="nav-link">До и После</a></li>
                 <li><a href="#status" class="nav-link">Статус</a></li>
                 <li><a href="#map" class="nav-link">Карта</a></li>
@@ -90,8 +90,8 @@
             <p><i class="fas fa-users"></i> Проект выдвинут инициативной группой жителей; идет сбор подписей и подготовка документов</p>
             <p><i class="fas fa-award"></i> Участвует в конкурсном отборе программы "Сделаем вместе" на 2025 год</p>
         </div>
-        <a href="#support" class="cta-button">
-            <span>Поддержать проект</span>
+        <a href="#voting" class="cta-button">
+            <span>Проголосовать</span>
             <i class="fas fa-arrow-down"></i>
         </a>
     </div>
@@ -102,53 +102,50 @@
     </header>
 
     <main id="main">
-        <section id="support">
+        <section id="voting">
             <div class="container">
                 <div class="section-header">
-                    <h2><i class="fas fa-hand-holding-heart"></i> Поддержите проект</h2>
-                    <p class="section-subtitle">Ваша подпись и обратная связь помогают проекту пройти конкурсный отбор</p>
+                    <h2><i class="fas fa-poll"></i> Голосование за проект</h2>
+                    <p class="section-subtitle">Выразите свое мнение о проекте реконструкции дорог</p>
                 </div>
-                <div class="support-grid">
-                    <div class="support-card">
-                        <div class="support-header">
-                            <i class="fas fa-user-check"></i>
-                            <h3>Оставьте подпись</h3>
+                <div class="voting-grid">
+                    <div class="voting-card support-votes">
+                        <div class="voting-header">
+                            <i class="fas fa-thumbs-up"></i>
+                            <h3>За проект</h3>
                         </div>
-                        <p>Укажите имя и email. Мы учтём вашу поддержку при подаче документов и свяжемся при необходимости.</p>
-                        <form id="support-form" class="support-form" novalidate>
-                            <input type="hidden" name="formType" value="support">
-                            <div class="form-group">
-                                <label for="support-name">Имя</label>
-                                <input type="text" name="name" id="support-name" placeholder="Ваше имя" autocomplete="name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="support-email">Email</label>
-                                <input type="email" name="email" id="support-email" placeholder="Email" autocomplete="email" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="support-message">Комментарий (необязательно)</label>
-                                <textarea name="message" id="support-message" placeholder="Короткий комментарий" rows="3"></textarea>
-                            </div>
-                            <div class="form-agreement">
-                                <input type="checkbox" id="support-consent" required>
-                                <label for="support-consent">Согласен(на) на обработку персональных данных</label>
-                            </div>
-                            <button type="submit" class="submit-btn">
-                                <i class="fas fa-pen"></i>
-                                Поддержать проект
-                            </button>
-                        </form>
+                        <div class="vote-counter">
+                            <span class="vote-number" id="votes-for">245</span>
+                            <span class="vote-label">голосов</span>
+                        </div>
+                        <div class="vote-bar">
+                            <div class="vote-progress" id="progress-for"></div>
+                        </div>
                     </div>
-                    <div class="support-stats">
-                        <div class="stat-panel">
-                            <div class="stat-number">180+</div>
-                            <div class="stat-label">подписей уже собрано</div>
+                    
+                    <div class="voting-card against-votes">
+                        <div class="voting-header">
+                            <i class="fas fa-thumbs-down"></i>
+                            <h3>Против проекта</h3>
                         </div>
-                        <ul class="benefits-list">
-                            <li><i class="fas fa-check"></i> Прозрачная информация о статусе</li>
-                            <li><i class="fas fa-check"></i> Соответствие региональной программе</li>
-                            <li><i class="fas fa-check"></i> Улучшение безопасности и доступности</li>
-                        </ul>
+                        <div class="vote-counter">
+                            <span class="vote-number" id="votes-against">67</span>
+                            <span class="vote-label">голосов</span>
+                        </div>
+                        <div class="vote-bar">
+                            <div class="vote-progress" id="progress-against"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="voting-summary">
+                    <div class="summary-item">
+                        <span class="summary-label">Всего голосов:</span>
+                        <span class="summary-value" id="total-votes">312</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Поддержка:</span>
+                        <span class="summary-value" id="support-percentage">78.5%</span>
                     </div>
                 </div>
             </div>
