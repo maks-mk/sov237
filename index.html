@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#0d1117" id="theme-color-meta">
-    <meta name="color-scheme" content="dark">
+    <meta name="color-scheme" content="dark light">
     <meta name="description" content="Инициативный проект по реконструкции внутриквартальных дорог в г. Шахты, ул. Советская 231–237. Цели, статус, визуализации, карта и способы поддержать проект.">
     <link rel="manifest" href="manifest.webmanifest">
     <meta property="og:type" content="website">
@@ -12,16 +12,22 @@
     <meta property="og:description" content="Инициативный проект жителей: визуализации до/после, сроки, карта, документы и поддержка.">
     <meta property="og:image" content="images/1.jpg">
     <meta property="og:locale" content="ru_RU">
+    <meta property="og:site_name" content="Дороги Шахты">
     <meta name="twitter:card" content="summary_large_image">
     <title>Реконструкция дорог | г. Шахты, ул. Советская 231-237</title>
 	<link rel="icon" href="favicon.ico?v=1" type="image/x-icon">
 	
-    <!-- Подключение новых шрифтов -->
+    <!-- Подключение новых шрифтов и иконок -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Иконки -->
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <link rel="stylesheet" href="style.css">
@@ -29,18 +35,18 @@
 <body>
     <a href="#main" class="skip-link">Перейти к содержимому</a>
     <!-- Навигация -->
-    <nav class="navbar">
+    <nav class="navbar" aria-label="Основная навигация">
         <div class="container">
             <div class="nav-brand">
                 <i class="fas fa-road"></i>
                 <span>Дороги Шахты</span>
             </div>
-            <button class="nav-toggle" aria-label="Открыть меню">
+            <button class="nav-toggle" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav-menu">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
-            <ul class="nav-menu">
+            <ul class="nav-menu" id="nav-menu">
                 <li><a href="#voting" class="nav-link">Голосование</a></li>
                 <li><a href="#comparison" class="nav-link">До и После</a></li>
                 <li><a href="#status" class="nav-link">Статус</a></li>
@@ -59,7 +65,7 @@
 
     <header class="header">
         <div class="container">
-    <div class="hero-content">
+    <div class="hero-content" role="banner">
         <div class="hero-badge">
             <i class="fas fa-handshake"></i>
             <a href="https://xn--61-6kciigbba9cnb1djp.xn--p1ai/" class="project-link" target="_blank" rel="noopener noreferrer">
@@ -162,7 +168,7 @@
                             <h3><i class="fas fa-road"></i> Участок 1</h3>
                             <span class="status-badge pending">На рассмотрении</span>
                         </div>
-                        <div class="image-comparison-slider">
+                        <div class="image-comparison-slider" aria-label="Слайдер сравнения: Участок 1, до и после">
                             <img src="images/1.jpg" alt="До реконструкции участка 1">
                             <img src="images/1_1.jpeg" alt="После реконструкции участка 1">
                         </div>
@@ -178,7 +184,7 @@
                             <h3><i class="fas fa-road"></i> Участок 2</h3>
                             <span class="status-badge pending">На рассмотрении</span>
                         </div>
-                        <div class="image-comparison-slider">
+                        <div class="image-comparison-slider" aria-label="Слайдер сравнения: Участок 2, до и после">
                             <img src="images/2.jpg" alt="До реконструкции участка 2">
                             <img src="images/2_2.jpeg" alt="После реконструкции участка 2">
                         </div>
@@ -194,7 +200,7 @@
                             <h3><i class="fas fa-road"></i> Участок 3</h3>
                             <span class="status-badge pending">На рассмотрении</span>
                         </div>
-                        <div class="image-comparison-slider">
+                        <div class="image-comparison-slider" aria-label="Слайдер сравнения: Участок 3, до и после">
                             <img src="images/3.jpg" alt="До реконструкции участка 3">
                             <img src="images/3_3.jpeg" alt="После реконструкции участка 3">
                         </div>
@@ -210,7 +216,7 @@
                             <h3><i class="fas fa-road"></i> Участок 4</h3>
                             <span class="status-badge pending">На рассмотрении</span>
                         </div>
-                        <div class="image-comparison-slider">
+                        <div class="image-comparison-slider" aria-label="Слайдер сравнения: Участок 4, до и после">
                             <img src="images/4.jpg" alt="До реконструкции участка 4">
                             <img src="images/4_4.jpeg" alt="После реконструкции участка 4">
                         </div>
@@ -226,7 +232,7 @@
                             <h3><i class="fas fa-road"></i> Участок 5</h3>
                             <span class="status-badge pending">На рассмотрении</span>
                         </div>
-                        <div class="image-comparison-slider">
+                        <div class="image-comparison-slider" aria-label="Слайдер сравнения: Участок 5, до и после">
                             <img src="images/5.jpg" alt="До реконструкции участка 5">
                             <img src="images/5_5.jpg" alt="После реконструкции участка 5">
                         </div>
@@ -242,7 +248,7 @@
                             <h3><i class="fas fa-road"></i> Участок 6</h3>
                             <span class="status-badge pending">На рассмотрении</span>
                         </div>
-                        <div class="image-comparison-slider">
+                        <div class="image-comparison-slider" aria-label="Слайдер сравнения: Участок 6, до и после">
                             <img src="images/6.jpg" alt="До реконструкции участка 6">
                             <img src="images/6_6.jpeg" alt="После реконструкции участка 6">
                         </div>
@@ -265,7 +271,7 @@
                             <h3><i class="fas fa-road"></i> Участок 7</h3>
                             <span class="status-badge pending">На рассмотрении</span>
                         </div>
-                        <div class="image-comparison-slider">
+                        <div class="image-comparison-slider" aria-label="Слайдер сравнения: Участок 7, до и после">
                             <img src="images/7.jpg" alt="До реконструкции участка 7">
                             <img src="images/7_7.jpeg" alt="После реконструкции участка 7">
                         </div>
@@ -281,7 +287,7 @@
                             <h3><i class="fas fa-road"></i> Участок 8</h3>
                             <span class="status-badge pending">На рассмотрении</span>
                         </div>
-                        <div class="image-comparison-slider">
+                        <div class="image-comparison-slider" aria-label="Слайдер сравнения: Участок 8, до и после">
                             <img src="images/8.jpg" alt="До реконструкции участка 8">
                             <img src="images/8_8.jpeg" alt="После реконструкции участка 8">
                         </div>
@@ -297,7 +303,7 @@
                             <h3><i class="fas fa-road"></i> Участок 9</h3>
                             <span class="status-badge pending">На рассмотрении</span>
                         </div>
-                        <div class="image-comparison-slider">
+                        <div class="image-comparison-slider" aria-label="Слайдер сравнения: Участок 9, до и после">
                             <img src="images/9.jpg" alt="До реконструкции участка 9">
                             <img src="images/9_9.jpeg" alt="После реконструкции участка 9">
                         </div>
@@ -313,7 +319,7 @@
                             <h3><i class="fas fa-road"></i> Участок 10</h3>
                             <span class="status-badge pending">На рассмотрении</span>
                         </div>
-                        <div class="image-comparison-slider">
+                        <div class="image-comparison-slider" aria-label="Слайдер сравнения: Участок 10, до и после">
                             <img src="images/10.jpg" alt="До реконструкции участка 10">
                             <img src="images/10_10.jpeg" alt="После реконструкции участка 10">
                         </div>
@@ -329,7 +335,7 @@
                             <h3><i class="fas fa-road"></i> Участок 11</h3>
                             <span class="status-badge pending">На рассмотрении</span>
                         </div>
-                        <div class="image-comparison-slider">
+                        <div class="image-comparison-slider" aria-label="Слайдер сравнения: Участок 11, до и после">
                             <img src="images/11.jpg" alt="До реконструкции участка 11">
                             <img src="images/11_11.jpeg" alt="После реконструкции участка 11">
                         </div>
@@ -345,7 +351,7 @@
                             <h3><i class="fas fa-road"></i> Участок 12</h3>
                             <span class="status-badge pending">На рассмотрении</span>
                         </div>
-                        <div class="image-comparison-slider">
+                        <div class="image-comparison-slider" aria-label="Слайдер сравнения: Участок 12, до и после">
                             <img src="images/12.jpg" alt="До реконструкции участка 12">
                             <img src="images/12_12.jpeg" alt="После реконструкции участка 12">
                         </div>
@@ -456,6 +462,7 @@
                 </div>
                 <div class="map-container">
                     <iframe
+                        title="Карта расположения участков реконструкции"
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2730.219939835302!2d40.20292641589928!3d47.715938179192!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40e1f898f377132b%3A0x8d79a38cb7f7476d!2z0YPQuy4g0KHQvtCy0LXRgtGB0LrQsNGPLCAyMzEsINCo0LDRhdC40YQsINCg0L7RgdGC0L7QstGB0LrQsNGPINC-0LHQuy4sIDM0NjUyMA!5e0!3m2!1sru!2sru!4v1695041195321!5m2!1sru!2sru"
                         width="100%"
                         height="450"
@@ -741,13 +748,13 @@
                         <h3>Быстрая обратная связь</h3>
                         <form class="contact-form">
                             <div class="form-group">
-                                <input type="text" name="name" id="contact-name" placeholder="Ваше имя" required>
+                                <input type="text" name="name" id="contact-name" placeholder="Ваше имя" aria-label="Имя" autocomplete="name" required>
                             </div>
                             <div class="form-group">
-                                <input type="email" name="email" id="contact-email" placeholder="Email" required>
+                                <input type="email" name="email" id="contact-email" placeholder="Email" aria-label="Email" autocomplete="email" required>
                             </div>
                             <div class="form-group">
-                                <textarea name="message" id="contact-message" placeholder="Ваш вопрос или предложение" rows="4" required></textarea>
+                                <textarea name="message" id="contact-message" placeholder="Ваш вопрос или предложение" aria-label="Сообщение" rows="4" required></textarea>
                             </div>
                             <button type="submit" class="submit-btn">
                                 <i class="fas fa-paper-plane"></i>

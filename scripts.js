@@ -21,6 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (navToggle && navMenu) {
         navToggle.addEventListener('click', () => {
+            const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+            navToggle.setAttribute('aria-expanded', String(!expanded));
             navToggle.classList.toggle('active');
             navMenu.classList.toggle('active');
         });
@@ -30,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
             link.addEventListener('click', () => {
                 navToggle.classList.remove('active');
                 navMenu.classList.remove('active');
+                navToggle.setAttribute('aria-expanded', 'false');
             });
         });
 
@@ -38,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!navToggle.contains(e.target) && !navMenu.contains(e.target)) {
                 navToggle.classList.remove('active');
                 navMenu.classList.remove('active');
+                navToggle.setAttribute('aria-expanded', 'false');
             }
         });
     }
@@ -299,8 +303,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 7b. Система голосования (статичные данные) ---
     // ИЗМЕНЯЙТЕ ЭТИ ЦИФРЫ ДЛЯ ОБНОВЛЕНИЯ ГОЛОСОВ:
-    const VOTES_FOR = 273;      // Голоса "За проект"
-    const VOTES_AGAINST = 38;   // Голоса "Против проекта"
+    const VOTES_FOR = 287;      // Голоса "За проект"
+    const VOTES_AGAINST = 34;   // Голоса "Против проекта"
     
     // Функция для обновления отображения голосов
     function updateVotingDisplay() {
@@ -342,8 +346,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         navbarLinks.forEach(link => {
             link.classList.remove('active');
+            link.removeAttribute('aria-current');
             if (link.getAttribute('href') === `#${current}`) {
                 link.classList.add('active');
+                link.setAttribute('aria-current', 'true');
             }
         });
     });
@@ -360,8 +366,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- 10. Ленивая загрузка изображений (через атрибут) ---
-    document.querySelectorAll('img:not([loading])').forEach(img => {
-        img.loading = 'lazy';
+    document.querySelectorAll('img').forEach(img => {
+        if (!img.hasAttribute('loading')) img.loading = 'lazy';
+        img.decoding = 'async';
     });
 
     // --- 10b. Ленивая загрузка изображений по data-src (fallback) ---
