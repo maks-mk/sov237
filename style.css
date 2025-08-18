@@ -676,7 +676,7 @@ html {
 .mobile-cta {
     position: fixed;
     left: 0;
-    right: 0;
+  /*  right: 0; */
     bottom: 12px;
     display: none;
     justify-content: center;
@@ -701,7 +701,7 @@ html {
     box-shadow: var(--shadow-lg);
 }
 .mobile-cta__btn--secondary {
-    background: var(--secondary-surface-color);
+    background: var(--gradient-primary);
     color: var(--text-primary);
     border: 1px solid var(--border-color);
 }
