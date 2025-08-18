@@ -677,7 +677,7 @@ html {
     position: fixed;
     left: 0;
   /*  right: 0; */
-    bottom: 15px;
+    bottom: 22px;
     display: none;
     justify-content: center;
     gap: 12px;
@@ -693,10 +693,10 @@ html {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    padding: 10px 12px;
+    padding: 8px 12px;
     border-radius: 12px;
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 300;
     color: #fff;
     background: var(--gradient-primary);
     box-shadow: var(--shadow-lg);
