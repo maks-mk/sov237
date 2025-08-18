@@ -687,7 +687,8 @@ html {
 .mobile-cta.visible { display: flex; }
 .mobile-cta__btn {
     flex: 1 1 0;
-    max-width: 320px;
+	font-size: 14px;
+    max-width: 150px;
     display: flex;
     align-items: center;
     justify-content: center;
