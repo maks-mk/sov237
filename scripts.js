@@ -102,6 +102,27 @@ document.addEventListener('DOMContentLoaded', () => {
             const ratio = window.innerHeight / screen.height;
             if (ratio < 0.7) hide(); else show();
         });
+
+        // Плавный переход к секции контактов и автофокус на поле имени
+        const writeBtn = document.querySelector('.mobile-cta__btn--secondary');
+        if (writeBtn) {
+            writeBtn.addEventListener('click', (e) => {
+                // Прерываем стандартный якорь для контроля смещения и фокуса
+                e.preventDefault();
+                const targetSection = document.querySelector('#contacts');
+                if (targetSection) {
+                    const offsetTop = targetSection.offsetTop - 80; // учитываем шапку
+                    window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+                    // Небольшая задержка для установки фокуса после скролла
+                    setTimeout(() => {
+                        const nameInput = document.querySelector('#contact-name') || targetSection.querySelector('input, textarea');
+                        if (nameInput) nameInput.focus({ preventScroll: true });
+                    }, 500);
+                }
+            });
+        }
+
+        // Всегда фиксируем кнопку у нижнего края — без подъёма у футера
     }
 
     // --- 1. Мобильная навигация ---
@@ -393,8 +414,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 7b. Система голосования (статичные данные) ---
     // ИЗМЕНЯЙТЕ ЭТИ ЦИФРЫ ДЛЯ ОБНОВЛЕНИЯ ГОЛОСОВ:
-    const VOTES_FOR = 298;      // Голоса "За проект"
-    const VOTES_AGAINST = 36;   // Голоса "Против проекта"
+    const VOTES_FOR = 287;      // Голоса "За проект"
+    const VOTES_AGAINST = 34;   // Голоса "Против проекта"
     
     // Функция для обновления отображения голосов
     function updateVotingDisplay() {

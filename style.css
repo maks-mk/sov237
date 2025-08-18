@@ -675,28 +675,29 @@ html {
 /* Mobile sticky CTA bar */
 .mobile-cta {
     position: fixed;
-    left: 0;
-  /*  right: 0; */
-    bottom: 22px;
+    left: 12px;
+    right: auto;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
     display: none;
-    justify-content: center;
-    gap: 12px;
-    z-index: 1100;
-    padding: 0 12px;
+    z-index: 1300;
+    padding: 0;
+    background: none;
+    backdrop-filter: none;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
 }
-.mobile-cta.visible { display: flex; }
+.mobile-cta.visible { display: block; }
 .mobile-cta__btn {
-    flex: 1 1 0;
-	font-size: 14px;
-    max-width: 150px;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    padding: 8px 12px;
+    padding: 10px 12px;
     border-radius: 12px;
     text-decoration: none;
-    font-weight: 300;
+    font-weight: 600;
+    font-size: 13px;
     color: #fff;
     background: var(--gradient-primary);
     box-shadow: var(--shadow-lg);
@@ -707,8 +708,20 @@ html {
     border: 1px solid var(--border-color);
 }
 .mobile-cta__btn--secondary:hover {
-    border-color: var(--accent-color);
-    color: var(--accent-color);
+    color: #fff; /* оставляем белый текст для контраста на градиенте */
+    border-color: transparent;
+    filter: brightness(1.06);
+}
+
+/* Улучшение видимости при фокусе с клавиатуры/тапа */
+.mobile-cta__btn:focus-visible {
+    outline: 2px solid rgba(255,255,255,0.9);
+    outline-offset: 2px;
+}
+
+/* При близости к футеру поднимаем панель выше, чтобы не перекрывать контент */
+.mobile-cta.near-footer {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 90px);
 }
 
 @media (min-width: 769px) {
