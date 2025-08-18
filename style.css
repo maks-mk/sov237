@@ -703,7 +703,7 @@ html {
 }
 .mobile-cta__btn--secondary {
     background: var(--gradient-primary);
-    color: var(--text-primary);
+    color: #fff;
     border: 1px solid var(--border-color);
 }
 .mobile-cta__btn--secondary:hover {
