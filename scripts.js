@@ -14,6 +14,96 @@ document.addEventListener('DOMContentLoaded', () => {
         if (themeMeta) themeMeta.setAttribute('content', '#ffffff');
     }
 
+    // === Voting progress bars (combined card) ===
+    const updateVotingUI = () => {
+        const votesForEl = document.getElementById('votes-for');
+        const votesAgainstEl = document.getElementById('votes-against');
+        const progressForEl = document.getElementById('progress-for');
+        const progressAgainstEl = document.getElementById('progress-against');
+        const totalEl = document.getElementById('total-votes');
+        const supportPctEl = document.getElementById('support-percentage');
+
+        if (!votesForEl || !votesAgainstEl || !progressForEl || !progressAgainstEl) return;
+
+        const parseNum = (el) => {
+            const n = parseInt((el.textContent || '0').replace(/[^0-9\-]/g, ''), 10);
+            return Number.isFinite(n) ? Math.max(0, n) : 0;
+        };
+
+        const forCount = parseNum(votesForEl);
+        const againstCount = parseNum(votesAgainstEl);
+        const total = forCount + againstCount;
+        const supportPct = total > 0 ? (forCount / total) * 100 : 0;
+        const againstPct = total > 0 ? (againstCount / total) * 100 : 0;
+
+        // Update counters (total and percentage) if present
+        if (totalEl) totalEl.textContent = String(total);
+        if (supportPctEl) supportPctEl.textContent = `${supportPct.toFixed(1)}%`;
+
+        // Apply widths
+        progressForEl.style.width = `${supportPct}%`;
+        progressAgainstEl.style.width = `${againstPct}%`;
+    };
+
+    // Initial render
+    updateVotingUI();
+
+    // === Scroll Progress Bar ===
+    const progressBar = document.querySelector('.scroll-progress__bar');
+    const updateScrollProgress = () => {
+        if (!progressBar) return;
+        const docEl = document.documentElement;
+        const scrollTop = docEl.scrollTop || document.body.scrollTop;
+        const scrollHeight = docEl.scrollHeight - docEl.clientHeight;
+        const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+        progressBar.style.width = progress + '%';
+    };
+    updateScrollProgress();
+    window.addEventListener('scroll', updateScrollProgress, { passive: true });
+
+    // === Mobile CTA visibility enhancements ===
+    const mobileCta = document.querySelector('.mobile-cta');
+    if (mobileCta) {
+        let hideTimer;
+        const show = () => {
+            mobileCta.classList.add('visible');
+        };
+        const hide = () => {
+            mobileCta.classList.remove('visible');
+        };
+
+        // Show by default on load for small screens
+        const mq = window.matchMedia('(max-width: 768px)');
+        const applyMQ = () => {
+            if (mq.matches) show(); else hide();
+        };
+        applyMQ();
+        mq.addEventListener ? mq.addEventListener('change', applyMQ) : mq.addListener(applyMQ);
+
+        // Hide when user scrolls down fast, show on idle
+        let lastY = window.pageYOffset;
+        window.addEventListener('scroll', () => {
+            if (!mq.matches) return;
+            const y = window.pageYOffset;
+            if (y > lastY + 10) {
+                hide();
+            } else if (y < lastY - 10) {
+                show();
+            }
+            lastY = y;
+            clearTimeout(hideTimer);
+            hideTimer = setTimeout(show, 1200);
+        }, { passive: true });
+
+        // Avoid overlap with on-screen keyboards
+        window.addEventListener('resize', () => {
+            if (!mq.matches) return;
+            // If height shrinks a lot (keyboard likely open), hide
+            const ratio = window.innerHeight / screen.height;
+            if (ratio < 0.7) hide(); else show();
+        });
+    }
+
     // --- 1. Мобильная навигация ---
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('.nav-menu');
@@ -303,7 +393,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 7b. Система голосования (статичные данные) ---
     // ИЗМЕНЯЙТЕ ЭТИ ЦИФРЫ ДЛЯ ОБНОВЛЕНИЯ ГОЛОСОВ:
-    const VOTES_FOR = 294;      // Голоса "За проект"
+    const VOTES_FOR = 298;      // Голоса "За проект"
     const VOTES_AGAINST = 36;   // Голоса "Против проекта"
     
     // Функция для обновления отображения голосов

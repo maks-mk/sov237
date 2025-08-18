@@ -33,6 +33,9 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="scroll-progress" aria-hidden="true">
+        <div class="scroll-progress__bar"></div>
+    </div>
     <a href="#main" class="skip-link">Перейти к содержимому</a>
     <!-- Навигация -->
     <nav class="navbar" aria-label="Основная навигация">
@@ -96,10 +99,16 @@
             <p><i class="fas fa-users"></i> Проект выдвинут инициативной группой жителей; идет сбор подписей и подготовка документов</p>
             <p><i class="fas fa-award"></i> Участвует в конкурсном отборе программы "Сделаем вместе" на 2025 год</p>
         </div>
-        <a href="#voting" class="cta-button">
-            <span>Проголосовать</span>
-            <i class="fas fa-arrow-down"></i>
-        </a>
+        <div class="cta-group">
+            <a href="#voting" class="cta-button">
+                <span>Проголосовать</span>
+                <i class="fas fa-arrow-down"></i>
+            </a>
+            <a href="#program" class="cta-button cta-secondary">
+                <i class="fas fa-file-alt"></i>
+                <span>О программе</span>
+            </a>
+        </div>
     </div>
 </div>
         <div class="hero-background">
@@ -115,31 +124,38 @@
                     <p class="section-subtitle">Выразите свое мнение о проекте реконструкции дорог</p>
                 </div>
                 <div class="voting-grid">
-                    <div class="voting-card support-votes">
+                    <div class="voting-card voting-card--combined">
                         <div class="voting-header">
-                            <i class="fas fa-thumbs-up"></i>
-                            <h3>За проект</h3>
+                            <i class="fas fa-poll"></i>
+                            <h3>Голоса</h3>
                         </div>
-                        <div class="vote-counter">
-                            <span class="vote-number" id="votes-for">245</span>
-                            <span class="vote-label">голосов</span>
-                        </div>
-                        <div class="vote-bar">
-                            <div class="vote-progress" id="progress-for"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="voting-card against-votes">
-                        <div class="voting-header">
-                            <i class="fas fa-thumbs-down"></i>
-                            <h3>Против проекта</h3>
-                        </div>
-                        <div class="vote-counter">
-                            <span class="vote-number" id="votes-against">67</span>
-                            <span class="vote-label">голосов</span>
-                        </div>
-                        <div class="vote-bar">
-                            <div class="vote-progress" id="progress-against"></div>
+                        <div class="voting-rows">
+                            <div class="voting-row support">
+                                <div class="voting-row__label">
+                                    <i class="fas fa-thumbs-up" aria-hidden="true"></i>
+                                    <span>За</span>
+                                </div>
+                                <div class="voting-row__count">
+                                    <span class="vote-number" id="votes-for">245</span>
+                                    <span class="vote-label">голосов</span>
+                                </div>
+                                <div class="vote-bar">
+                                    <div class="vote-progress" id="progress-for"></div>
+                                </div>
+                            </div>
+                            <div class="voting-row against">
+                                <div class="voting-row__label">
+                                    <i class="fas fa-thumbs-down" aria-hidden="true"></i>
+                                    <span>Против</span>
+                                </div>
+                                <div class="voting-row__count">
+                                    <span class="vote-number" id="votes-against">67</span>
+                                    <span class="vote-label">голосов</span>
+                                </div>
+                                <div class="vote-bar">
+                                    <div class="vote-progress" id="progress-against"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -818,6 +834,18 @@
 
     <!-- Toast -->
     <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- Mobile sticky CTA -->
+    <div class="mobile-cta" role="navigation" aria-label="Быстрые действия">
+        <a href="#voting" class="mobile-cta__btn">
+            <i class="fas fa-poll"></i>
+            <span>Голосовать</span>
+        </a>
+        <a href="#contacts" class="mobile-cta__btn mobile-cta__btn--secondary">
+            <i class="fas fa-paper-plane"></i>
+            <span>Написать</span>
+        </a>
+    </div>
 
     <script src="scripts.js"></script>
 </body>
