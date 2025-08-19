@@ -1,8 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- 0. База API и тема ---
-    const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
-        ? 'http://localhost:8000'
-        : 'https://sov237-backend.onrender.com';
+    const host = window.location.hostname;
+    const API_BASE = (
+        host === 'localhost' ||
+        host === '127.0.0.1' ||
+        host === '192.168.0.3'
+    ) ? 'http://192.168.0.3:8000' : 'https://sov237-backend.onrender.com';
 
     const rootEl = document.documentElement;
     const themeMeta = document.querySelector('#theme-color-meta');
@@ -412,32 +415,202 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 7b. Система голосования (статичные данные) ---
-    // ИЗМЕНЯЙТЕ ЭТИ ЦИФРЫ ДЛЯ ОБНОВЛЕНИЯ ГОЛОСОВ:
-    const VOTES_FOR = 287;      // Голоса "За проект"
-    const VOTES_AGAINST = 34;   // Голоса "Против проекта"
-    
-    // Функция для обновления отображения голосов
-    function updateVotingDisplay() {
-        const totalVotes = VOTES_FOR + VOTES_AGAINST;
-        const supportPercentage = totalVotes > 0 ? ((VOTES_FOR / totalVotes) * 100).toFixed(1) : 0;
-        
-        // Обновляем числа
-        document.getElementById('votes-for').textContent = VOTES_FOR;
-        document.getElementById('votes-against').textContent = VOTES_AGAINST;
-        document.getElementById('total-votes').textContent = totalVotes;
-        document.getElementById('support-percentage').textContent = supportPercentage + '%';
-        
-        // Обновляем прогресс-бары
-        const forProgress = totalVotes > 0 ? (VOTES_FOR / totalVotes) * 100 : 0;
-        const againstProgress = totalVotes > 0 ? (VOTES_AGAINST / totalVotes) * 100 : 0;
-        
-        document.getElementById('progress-for').style.width = forProgress + '%';
-        document.getElementById('progress-against').style.width = againstProgress + '%';
+    // --- 7b. Система голосования через API ---
+    class VotingSystem {
+        constructor() {
+            this.fingerprint = null;
+            this.hasVoted = false;
+            this.userVote = null;
+            // UI элементы
+            this.votesForEl = document.getElementById('votes-for');
+            this.votesAgainstEl = document.getElementById('votes-against');
+            this.totalEl = document.getElementById('total-votes');
+            this.supportPctEl = document.getElementById('support-percentage');
+            this.msgEl = document.getElementById('vote-message');
+            this.formEl = document.getElementById('voting-form');
+            this.alreadyEl = document.getElementById('already-voted');
+            this.userVoteEl = document.getElementById('user-vote');
+            this.btnFor = document.getElementById('vote-for-btn');
+            this.btnAgainst = document.getElementById('vote-against-btn');
+            this.voteClickEls = document.querySelectorAll('.vote-click');
+        }
+
+        async init() {
+            if (!window.generateFingerprint) return; // safety
+            try {
+                this.fingerprint = await window.generateFingerprint();
+            } catch { this.fingerprint = null; }
+            await this.refreshStats();
+            await this.checkStatus();
+            this.bindEvents();
+        }
+
+        bindEvents() {
+            // Старые кнопки, если где-то остались
+            if (this.btnFor) this.btnFor.addEventListener('click', () => this.submitVote('for'));
+            if (this.btnAgainst) this.btnAgainst.addEventListener('click', () => this.submitVote('against'));
+
+            // Новые кликабельные подписи
+            if (this.voteClickEls && this.voteClickEls.length) {
+                this.voteClickEls.forEach(el => {
+                    el.addEventListener('click', () => {
+                        if (this.hasVoted) return;
+                        const type = el.dataset.vote === 'against' ? 'against' : 'for';
+                        this.submitVote(type);
+                    });
+                    el.addEventListener('keydown', (e) => {
+                        if (this.hasVoted) return;
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            const type = el.dataset.vote === 'against' ? 'against' : 'for';
+                            this.submitVote(type);
+                        }
+                    });
+                });
+            }
+        }
+
+        async refreshStats() {
+            try {
+                const ts = Date.now();
+                const url = this.fingerprint
+                    ? `${API_BASE}/api/votes?fingerprint=${encodeURIComponent(this.fingerprint)}&_ts=${ts}`
+                    : `${API_BASE}/api/votes?_ts=${ts}`;
+                const res = await fetch(url, {
+                    method: 'GET',
+                    cache: 'no-store',
+                    headers: {
+                        'Cache-Control': 'no-cache, no-store, max-age=0',
+                        'Pragma': 'no-cache'
+                    }
+                });
+                const data = await res.json().catch(() => ({}));
+                if (!res.ok) return;
+                this.applyStats(data);
+                if (typeof data.hasVoted === 'boolean') {
+                    this.hasVoted = data.hasVoted;
+                    this.userVote = data.userVote || null;
+                    this.updateStatusUI();
+                }
+            } catch (_) {}
+        }
+
+        async checkStatus() {
+            if (!this.fingerprint) return;
+            try {
+                const ts = Date.now();
+                const res = await fetch(`${API_BASE}/api/vote/check?fingerprint=${encodeURIComponent(this.fingerprint)}&_ts=${ts}` , {
+                    method: 'GET',
+                    cache: 'no-store',
+                    headers: {
+                        'Cache-Control': 'no-cache, no-store, max-age=0',
+                        'Pragma': 'no-cache'
+                    }
+                });
+                const data = await res.json().catch(() => ({}));
+                if (!res.ok) return;
+                this.hasVoted = !!data.hasVoted;
+                this.userVote = data.vote || null;
+                this.updateStatusUI();
+            } catch (_) {}
+        }
+
+        async submitVote(type) {
+            if (this.hasVoted) return;
+            if (!this.fingerprint) {
+                this.showMsg('Не удалось сгенерировать отпечаток', true);
+                return;
+            }
+            const btn = type === 'for' ? this.btnFor : this.btnAgainst; // может быть null
+            const prev = btn ? btn.innerHTML : '';
+            try {
+                if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Отправка...'; }
+                const res = await fetch(`${API_BASE}/api/vote?_ts=${Date.now()}` , {
+                    method: 'POST',
+                    cache: 'no-store',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Cache-Control': 'no-cache, no-store, max-age=0',
+                        'Pragma': 'no-cache'
+                    },
+                    body: JSON.stringify({ vote: type, fingerprint: this.fingerprint })
+                });
+                const data = await res.json().catch(() => ({}));
+                if (res.status === 409) {
+                    this.hasVoted = true;
+                    this.userVote = data.userVote || null;
+                    this.applyStats(data);
+                    this.updateStatusUI();
+                    this.showMsg(data.message || 'Вы уже голосовали', true);
+                    return;
+                }
+                if (!res.ok) {
+                    throw new Error(data.message || 'Ошибка голосования');
+                }
+                this.applyStats(data);
+                this.hasVoted = true;
+                this.userVote = type;
+                this.updateStatusUI();
+                this.showMsg('Голос учтен', false);
+            } catch (e) {
+                this.showMsg(e.message || 'Ошибка сети', true);
+            } finally {
+                if (btn) { btn.disabled = false; btn.innerHTML = prev; }
+            }
+        }
+
+        applyStats(data) {
+            const vf = Number(data.votesFor || 0);
+            const va = Number(data.votesAgainst || 0);
+            const total = Number(data.total || (vf + va));
+            if (this.votesForEl) this.votesForEl.textContent = String(vf);
+            if (this.votesAgainstEl) this.votesAgainstEl.textContent = String(va);
+            if (this.totalEl) this.totalEl.textContent = String(total);
+            if (this.supportPctEl) {
+                const pct = total > 0 ? ((vf / total) * 100).toFixed(1) : '0.0';
+                this.supportPctEl.textContent = `${pct}%`;
+            }
+            // обновляем бары существующей функцией
+            if (typeof updateVotingUI === 'function') updateVotingUI();
+        }
+
+        updateStatusUI() {
+            if (this.hasVoted) {
+                if (this.formEl) this.formEl.style.display = 'none';
+                if (this.alreadyEl) this.alreadyEl.style.display = '';
+                if (this.userVoteEl) this.userVoteEl.textContent = this.userVote === 'for' ? 'ЗА реконструкцию' : 'ПРОТИВ реконструкции';
+                if (this.voteClickEls && this.voteClickEls.length) {
+                    this.voteClickEls.forEach(el => {
+                        el.setAttribute('aria-disabled', 'true');
+                        el.classList.add('is-disabled');
+                    });
+                }
+            } else {
+                if (this.formEl) this.formEl.style.display = '';
+                if (this.alreadyEl) this.alreadyEl.style.display = 'none';
+                if (this.voteClickEls && this.voteClickEls.length) {
+                    this.voteClickEls.forEach(el => {
+                        el.setAttribute('aria-disabled', 'false');
+                        el.classList.remove('is-disabled');
+                    });
+                }
+            }
+        }
+
+        showMsg(text, isError=false) {
+            if (this.msgEl) {
+                this.msgEl.textContent = text;
+                this.msgEl.style.color = isError ? 'var(--danger-color)' : 'var(--text-color)';
+            } else {
+                // fallback на общий toast, если есть
+                if (typeof showToast === 'function') showToast(text, isError);
+            }
+        }
     }
-    
-    // Инициализируем отображение при загрузке
-    updateVotingDisplay();
+
+    // Инициализация голосования
+    const voting = new VotingSystem();
+    voting.init();
 
     // --- 8. Активная навигация при скролле ---
     const navbarLinks = document.querySelectorAll('.nav-link');

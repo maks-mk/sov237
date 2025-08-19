@@ -564,6 +564,30 @@ html {
     font-weight: 600;
 }
 
+/* Кликабельные подписи За/Против */
+.voting-row__label.vote-click {
+    cursor: pointer;
+    user-select: none;
+    border-radius: 10px;
+    padding: 6px 10px;
+    transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+}
+
+.voting-row__label.vote-click:hover {
+    background: var(--secondary-surface-color);
+}
+
+.voting-row__label.vote-click:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+.voting-row__label.vote-click.is-disabled {
+    cursor: default;
+    opacity: 0.7;
+    pointer-events: none;
+}
+
 .voting-row__count {
     display: flex;
     align-items: baseline;
@@ -592,8 +616,153 @@ html {
     border-radius: 16px;
 }
 
+/* Кнопки голосования внутри блока голосования */
+.voting-actions {
+    margin-top: 20px;
+    padding: 20px;
+    background: var(--primary-surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+}
+
+/* Когда блок внутри карточки голосования — выравниваем отступы */
+.voting-card--combined .voting-actions {
+    margin-top: 16px;
+}
+
+.voting-actions h3 {
+    margin: 0 0 14px 0;
+    font-size: 1.2em;
+    color: var(--text-primary);
+}
+
+.voting-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.voting-buttons .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    background: var(--secondary-surface-color);
+    color: var(--text-primary);
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast), filter var(--transition-fast), border-color var(--transition-fast);
+}
+
+.voting-buttons .btn i { font-size: 1em; }
+
+.voting-buttons .btn:hover {
+    transform: translateY(-1px);
+    border-color: var(--accent-color);
+    filter: brightness(1.05);
+}
+
+.voting-buttons .btn:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+.vote-for-btn {
+    background: linear-gradient(90deg, var(--success-color), #22c55e);
+    color: #fff !important;
+    border: none !important;
+}
+.vote-for-btn:hover { filter: brightness(1.06); }
+
+.vote-against-btn {
+    background: linear-gradient(90deg, var(--danger-color), #ef4444);
+    color: #fff !important;
+    border: none !important;
+}
+.vote-against-btn:hover { filter: brightness(1.06); }
+
+.voting-actions .vote-message {
+    margin-top: 12px;
+    font-size: 0.95em;
+    color: var(--text-secondary);
+}
+
+.already-voted {
+    margin-top: 12px;
+    padding: 10px;
+    background: var(--secondary-surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.35;
+}
+
+.already-voted p { margin: 0; font-size: 0.9rem; }
+.already-voted strong { font-weight: 600; }
+
+.voting-buttons .btn:disabled {
+    opacity: 0.75;
+    cursor: not-allowed;
+    filter: saturate(0.9);
+}
+
+/* Светлая тема — чёткие градиенты и контрастные фоны */
+:root[data-theme="light"] .voting-actions {
+    background: #ffffff;
+    border-color: var(--border-color);
+}
+
+:root[data-theme="light"] .voting-buttons .btn {
+    background: #f8fafc;
+}
+
+:root[data-theme="light"] .vote-for-btn {
+    background: linear-gradient(90deg, #16a34a, #22c55e);
+}
+
+:root[data-theme="light"] .vote-against-btn {
+    background: linear-gradient(90deg, #dc2626, #ef4444);
+}
+
+@media (max-width: 600px) {
+    .voting-buttons { flex-direction: column; }
+    .voting-buttons .btn { width: 100%; justify-content: center; }
+}
+
 .summary-item {
     text-align: center;
+}
+
+/* Дополнительная компоновка для узких экранов, чтобы блок голосования помещался */
+@media (max-width: 420px) {
+    .voting-grid { gap: 12px; }
+    .voting-card { padding: 12px; }
+    .voting-header h3 { font-size: 1rem; }
+
+    .voting-rows { gap: 10px; }
+    .voting-row {
+        gap: 10px;
+        padding: 10px;
+    }
+    .voting-row__label { font-size: 0.95rem; }
+    .voting-row__count { gap: 6px; }
+    .voting-row__count .vote-number { font-size: 1rem; }
+    .vote-label { font-size: 0.8rem; }
+    .vote-bar { height: 8px; }
+
+    .voting-summary {
+        gap: 24px;
+        padding: 12px;
+    }
+    .summary-item .summary-label { font-size: 0.9rem; }
+    .summary-item .summary-value { font-size: 1rem; }
+
+    .voting-actions { padding: 12px; }
+    .voting-actions h3 { font-size: 1rem; }
+    .already-voted { font-size: 0.85rem; padding: 8px; }
 }
 
 .summary-label {

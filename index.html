@@ -131,7 +131,7 @@
                         </div>
                         <div class="voting-rows">
                             <div class="voting-row support">
-                                <div class="voting-row__label">
+                                <div class="voting-row__label vote-click" role="button" tabindex="0" data-vote="for">
                                     <i class="fas fa-thumbs-up" aria-hidden="true"></i>
                                     <span>За</span>
                                 </div>
@@ -144,7 +144,7 @@
                                 </div>
                             </div>
                             <div class="voting-row against">
-                                <div class="voting-row__label">
+                                <div class="voting-row__label vote-click" role="button" tabindex="0" data-vote="against">
                                     <i class="fas fa-thumbs-down" aria-hidden="true"></i>
                                     <span>Против</span>
                                 </div>
@@ -155,6 +155,17 @@
                                 <div class="vote-bar">
                                     <div class="vote-progress" id="progress-against"></div>
                                 </div>
+                            </div>
+                        </div>
+                        <!-- Блок голосования с кнопками теперь внутри карточки "Голоса" -->
+                        <div id="voting-section" class="voting-actions">
+                            <div id="voting-form">
+                                <h3>Голосование по проекту</h3>
+                                <div id="vote-message" class="vote-message" aria-live="polite"></div>
+                            </div>
+
+                            <div id="already-voted" class="already-voted" style="display:none;">
+                                <p>Вы уже проголосовали: <strong id="user-vote"></strong></p>
                             </div>
                         </div>
                     </div>
@@ -170,6 +181,8 @@
                         <span class="summary-value" id="support-percentage">78.5%</span>
                     </div>
                 </div>
+
+                
             </div>
         </section>
         <section id="comparison">
@@ -847,6 +860,7 @@
         </a>
     </div>
 
+    <script src="fingerprint.js"></script>
     <script src="scripts.js"></script>
 </body>
 </html>
