@@ -4,22 +4,22 @@
 
 /* -- Переменные для цветов и шрифтов -- */
 :root {
-    --bg-color: #0d1117;
-    --bg-gradient: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
-    --primary-surface-color: #161b22;
-    --secondary-surface-color: #21262d;
-    --tertiary-surface-color: #30363d;
-    --border-color: #30363d;
-    --border-light: #484f58;
-    --text-primary: #c9d1d9;
-    --text-secondary: #8b949e;
-    --text-muted: #6e7681;
-    --accent-color: #58a6ff;
-    --accent-secondary: #7c3aed;
-    --accent-glow: rgba(88, 166, 255, 0.3);
-    --success-color: #238636;
-    --warning-color: #d29922;
-    --danger-color: #da3633;
+    --bg-color: #141922;
+    --bg-gradient: linear-gradient(135deg, #141922 0%, #1b2230 100%);
+    --primary-surface-color: #18202c;
+    --secondary-surface-color: #202a36;
+    --tertiary-surface-color: #2a3646;
+    --border-color: #324155;
+    --border-light: #40516a;
+    --text-primary: #e6edf3;
+    --text-secondary: #b7c2cf;
+    --text-muted: #95a2b2;
+    --accent-color: #76a8ff;
+    --accent-secondary: #a78bfa;
+    --accent-glow: rgba(118, 168, 255, 0.28);
+    --success-color: #35b558;
+    --warning-color: #e6b350;
+    --danger-color: #f06a67;
 
     /* Градиенты */
     --gradient-primary: linear-gradient(135deg, var(--accent-color), var(--accent-secondary));
@@ -185,7 +185,7 @@ html {
     top: 0;
     left: 0;
     right: 0;
-    background: rgba(13, 17, 23, 0.95);
+    background: rgba(20, 25, 34, 0.92);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border-color);
     z-index: 1000;
@@ -1364,7 +1364,7 @@ html {
     position: absolute;
     top: 24px;
     left: 24px;
-    background: rgba(13, 17, 23, 0.9);
+    background: rgba(20, 25, 34, 0.9);
     backdrop-filter: blur(10px);
     border: 1px solid var(--border-color);
     border-radius: 12px;
@@ -2158,7 +2158,7 @@ html {
         top: 70px;
         left: 0;
         right: 0;
-        background: rgba(13, 17, 23, 0.98);
+        background: rgba(20, 25, 34, 0.96);
         backdrop-filter: blur(20px);
         border-bottom: 1px solid var(--border-color);
         flex-direction: column;
@@ -2477,7 +2477,7 @@ section {
 
 /* Тень у навбара при прокрутке */
 .navbar.scrolled {
-    background: rgba(13, 17, 23, 0.98);
+    background: rgba(20, 25, 34, 0.95);
     box-shadow: var(--shadow-md);
 }
 
