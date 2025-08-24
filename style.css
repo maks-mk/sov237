@@ -609,8 +609,8 @@ html {
 .voting-summary {
     display: flex;
     justify-content: center;
-    gap: 60px;
-    padding: 24px;
+    gap: 32px;
+    padding: 12px 16px;
     background: var(--secondary-surface-color);
     border: 1px solid var(--border-color);
     border-radius: 16px;
@@ -768,15 +768,15 @@ html {
 .summary-label {
     display: block;
     color: var(--text-secondary);
-    font-size: 0.9em;
-    margin-bottom: 8px;
+    font-size: 0.8em;
+    margin-bottom: 4px;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
 .summary-value {
     display: block;
-    font-size: 1.8em;
+    font-size: 1.6em;
     font-weight: 700;
     color: var(--accent-color);
 }
@@ -2267,8 +2267,8 @@ html {
 
     .voting-summary {
         flex-direction: column;
-        gap: 24px;
-        padding: 20px;
+        gap: 12px;
+        padding: 12px 14px;
     }
 
     .section-subtitle {
