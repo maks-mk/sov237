@@ -102,12 +102,151 @@ body {
 }
 
 .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
     text-decoration: none;
-    color: inherit;
+    color: #ffffff;
+    background: linear-gradient(180deg, color-mix(in srgb, var(--accent-color) 95%, #ffffff 5%), color-mix(in srgb, var(--accent-color) 75%, #000000 25%)); /* по умолчанию — solid */
+    border: 1px solid color-mix(in srgb, var(--accent-color) 70%, #000000 30%);
+    border-radius: 999px;
+    padding: 10px 18px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    box-shadow: 0 6px 18px rgba(88, 166, 255, 0.30), var(--shadow-sm);
+    transition: background var(--transition-normal), border-color var(--transition-normal), color var(--transition-normal), transform var(--transition-fast), box-shadow var(--transition-normal), filter var(--transition-normal);
 }
 
 .project-link:hover {
-    text-decoration: underline; /* Подчеркивание при наведении для визуальной обратной связи */
+    background: linear-gradient(180deg, color-mix(in srgb, var(--accent-color) 100%, #ffffff 0%), color-mix(in srgb, var(--accent-color) 68%, #000000 32%));
+    border-color: color-mix(in srgb, var(--accent-color) 78%, #000000 22%);
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(88, 166, 255, 0.45), var(--shadow-md);
+    filter: saturate(1.02);
+}
+
+.project-link:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 12px rgba(88, 166, 255, 0.30), var(--shadow-sm);
+}
+
+.project-link:focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--accent-color) 50%, transparent);
+    outline-offset: 2px;
+}
+
+/* Иконка как мини-бейдж внутри кнопки */
+.project-link i {
+    width: 26px;
+    height: 26px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+/* Вариант 1: Стеклянная кнопка (glass) */
+.project-link--glass {
+    /* По умолчанию (тёмная тема): светлый текст на более тёмном фоне */
+    color: #e6edf3;
+}
+.project-link--glass span { color: #e6edf3; }
+.project-link--glass:hover,
+.project-link--glass:hover span { color: #f8fbff; }
+.project-link--glass:active,
+.project-link--glass:active span { color: #e6edf3; }
+
+.project-link--glass {
+    background: rgba(88, 166, 255, 0.18);
+    border: 1px solid rgba(88, 166, 255, 0.50);
+    box-shadow: 0 6px 20px rgba(88, 166, 255, 0.20), 0 1px 0 rgba(255, 255, 255, 0.12) inset;
+    backdrop-filter: blur(8px);
+}
+.project-link--glass:hover {
+    background: rgba(88, 166, 255, 0.22);
+    border-color: rgba(88, 166, 255, 0.60);
+}
+.project-link--glass:active {
+    background: rgba(88, 166, 255, 0.20);
+}
+.project-link--glass i {
+    /* Светлый бейдж для читаемости на тёмном фоне */
+    color: #0d1117;
+    background: rgba(230, 237, 243, 0.90);
+    border-color: rgba(230, 237, 243, 0.95);
+}
+
+/* Светлая тема: делаем кнопку контрастной с тёмным текстом */
+:root[data-theme="light"] .project-link--glass {
+    color: #0d1117;
+    background: rgba(88, 166, 255, 0.14);
+    border-color: rgba(88, 166, 255, 0.35);
+}
+:root[data-theme="light"] .project-link--glass:hover {
+    background: rgba(88, 166, 255, 0.18);
+    border-color: rgba(88, 166, 255, 0.45);
+}
+:root[data-theme="light"] .project-link--glass i {
+    color: #0d1117;
+    background: rgba(255, 255, 255, 0.55);
+    border-color: rgba(0, 0, 0, 0.08);
+}
+
+/* Вариант 2: Контурный (outline) */
+.project-link--outline {
+    color: var(--accent-color);
+    background: transparent;
+    border: 1.5px solid var(--accent-color);
+    box-shadow: none;
+}
+.project-link--outline:hover {
+    background: color-mix(in srgb, var(--accent-color) 12%, transparent);
+}
+.project-link--outline i {
+    color: var(--accent-color);
+    background: transparent;
+    border: 1px solid color-mix(in srgb, var(--accent-color) 40%, transparent);
+}
+
+/* Вариант 3: Мягкий (soft) */
+.project-link--soft {
+    color: color-mix(in srgb, var(--accent-color) 20%, #000);
+    background: color-mix(in srgb, var(--accent-color) 14%, #ffffff);
+    border: 1px solid color-mix(in srgb, var(--accent-color) 22%, #d0d7de);
+    box-shadow: var(--shadow-sm);
+}
+.project-link--soft:hover { filter: brightness(1.02); }
+.project-link--soft i {
+    color: color-mix(in srgb, var(--accent-color) 24%, #000);
+    background: color-mix(in srgb, #ffffff 80%, var(--accent-color) 20%);
+    border-color: color-mix(in srgb, var(--accent-color) 22%, #d0d7de);
+}
+
+/* Компактность на маленьких экранах */
+@media (max-width: 480px) {
+    .project-link { padding: 8px 14px; font-size: 0.95rem; }
+    .project-link i { width: 26px; height: 26px; }
+}
+
+/* Форсируем контрастный текст у стеклянной кнопки в хэдэре (с учётом темы) */
+/* Тёмная тема (атрибут data-theme не равен light) — светлый текст */
+:root:not([data-theme="light"]) .header .hero-badge .project-link.project-link--glass,
+:root:not([data-theme="light"]) .header .hero-badge .project-link.project-link--glass:link,
+:root:not([data-theme="light"]) .header .hero-badge .project-link.project-link--glass:visited,
+:root:not([data-theme="light"]) .header .hero-badge .project-link.project-link--glass span {
+    color: #e6edf3 !important;
+}
+
+/* Светлая тема — тёмный текст для лучшей читабельности */
+:root[data-theme="light"] .header .hero-badge .project-link.project-link--glass,
+:root[data-theme="light"] .header .hero-badge .project-link.project-link--glass:link,
+:root[data-theme="light"] .header .hero-badge .project-link.project-link--glass:visited,
+:root[data-theme="light"] .header .hero-badge .project-link.project-link--glass span {
+    color: #0d1117 !important;
 }
 
 h1, h2, h3, h4 {
