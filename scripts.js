@@ -296,7 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const progressTextEl = document.querySelector('.progress-percentage');
     const progressCircleEl = document.querySelector('.progress-circle');
     if (progressRing) {
-        const defaultProgress = 15; // дефолт для разработки
+        const defaultProgress = 17; // дефолт для разработки
         const configured = parseFloat(
             (progressCircleEl && progressCircleEl.dataset && progressCircleEl.dataset.progress) ||
             (progressTextEl && (progressTextEl.textContent || '').replace('%','')) ||
