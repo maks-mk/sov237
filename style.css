@@ -238,7 +238,7 @@ body {
 :root:not([data-theme="light"]) .header .hero-badge .project-link.project-link--glass:link,
 :root:not([data-theme="light"]) .header .hero-badge .project-link.project-link--glass:visited,
 :root:not([data-theme="light"]) .header .hero-badge .project-link.project-link--glass span {
-    color: #e6edf3 !important;
+    color: #FFFFFF !important;
 }
 
 /* Светлая тема — тёмный текст для лучшей читабельности */

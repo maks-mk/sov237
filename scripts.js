@@ -638,7 +638,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- 9. Параллакс эффект для hero секции ---
+    // --- 9. Параллакс эффект для hero секции (отключено) ---
+    /*
     const heroBackground = document.querySelector('.hero-background');
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     if (heroBackground && !prefersReducedMotion.matches) {
@@ -648,8 +649,10 @@ document.addEventListener('DOMContentLoaded', () => {
             heroBackground.style.transform = `translateY(${rate}px)`;
         });
     }
+    */
 
-    // --- 9b. Лёгкий 3D-наклон HERO при движении мыши ---
+    // --- 9b. Лёгкий 3D-наклон HERO при движении мыши (отключено) ---
+    /*
     const headerEl = document.querySelector('.header');
     const heroContent = document.querySelector('.hero-content');
     if (headerEl && heroContent) {
@@ -671,8 +674,10 @@ document.addEventListener('DOMContentLoaded', () => {
         headerEl.addEventListener('mousemove', applyHeroTilt);
         headerEl.addEventListener('mouseleave', resetHeroTilt);
     }
+    */
 
-    // --- 9c. 3D tilt + shine для карточек ---
+    // --- 9c. 3D tilt + shine для карточек (отключено) ---
+    /*
     const enableCardTilt = () => {
         if (prefersReducedMotion.matches) return;
         const cards = document.querySelectorAll('.comparison-card, .detail-card, .voting-card, .finance-item, .cta-button, .show-more-btn, .voting-buttons .btn, .mobile-cta__btn, .theme-toggle');
@@ -717,6 +722,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
     enableCardTilt();
+    */
 
     // --- 10. Ленивая загрузка изображений (через атрибут) ---
     document.querySelectorAll('img').forEach(img => {
