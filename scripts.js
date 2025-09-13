@@ -649,6 +649,75 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- 9b. Лёгкий 3D-наклон HERO при движении мыши ---
+    const headerEl = document.querySelector('.header');
+    const heroContent = document.querySelector('.hero-content');
+    if (headerEl && heroContent) {
+        const maxTilt = 6; // градусов
+        const applyHeroTilt = (e) => {
+            if (prefersReducedMotion.matches) return;
+            const rect = headerEl.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width;  // 0..1
+            const y = (e.clientY - rect.top) / rect.height; // 0..1
+            const tiltX = (0.5 - y) * maxTilt; // вверх/вниз => rotateX
+            const tiltY = (x - 0.5) * maxTilt; // влево/вправо => rotateY
+            heroContent.style.setProperty('--heroTiltX', `${tiltX.toFixed(2)}deg`);
+            heroContent.style.setProperty('--heroTiltY', `${tiltY.toFixed(2)}deg`);
+        };
+        const resetHeroTilt = () => {
+            heroContent.style.setProperty('--heroTiltX', '0deg');
+            heroContent.style.setProperty('--heroTiltY', '0deg');
+        };
+        headerEl.addEventListener('mousemove', applyHeroTilt);
+        headerEl.addEventListener('mouseleave', resetHeroTilt);
+    }
+
+    // --- 9c. 3D tilt + shine для карточек ---
+    const enableCardTilt = () => {
+        if (prefersReducedMotion.matches) return;
+        const cards = document.querySelectorAll('.comparison-card, .detail-card, .voting-card, .finance-item, .cta-button, .show-more-btn, .voting-buttons .btn, .mobile-cta__btn, .theme-toggle');
+        cards.forEach(card => {
+            // Разный максимум для тяжёлых карточек и маленьких кнопок
+            const isButton = card.matches('.cta-button, .show-more-btn, .voting-buttons .btn, .mobile-cta__btn, .theme-toggle');
+            const maxTilt = isButton ? 5 : 8; // градусов
+            let rafId = null;
+            const onMove = (e) => {
+                const rect = card.getBoundingClientRect();
+                const cx = e.clientX ?? (e.touches && e.touches[0]?.clientX);
+                const cy = e.clientY ?? (e.touches && e.touches[0]?.clientY);
+                if (cx == null || cy == null) return;
+                const x = (cx - rect.left) / rect.width;  // 0..1
+                const y = (cy - rect.top) / rect.height; // 0..1
+                const tiltX = (0.5 - y) * maxTilt;
+                const tiltY = (x - 0.5) * maxTilt;
+                // Используем rAF для плавности
+                if (rafId) cancelAnimationFrame(rafId);
+                rafId = requestAnimationFrame(() => {
+                    card.style.setProperty('--tiltX', `${tiltX.toFixed(2)}deg`);
+                    card.style.setProperty('--tiltY', `${tiltY.toFixed(2)}deg`);
+                    // Блик
+                    const shineX = `${(x * 100).toFixed(1)}%`;
+                    const shineY = `${(y * 100).toFixed(1)}%`;
+                    card.style.setProperty('--shineX', shineX);
+                    card.style.setProperty('--shineY', shineY);
+                    card.style.setProperty('--shineOpacity', '1');
+                });
+            };
+            const onLeave = () => {
+                if (rafId) cancelAnimationFrame(rafId);
+                card.style.setProperty('--tiltX', '0deg');
+                card.style.setProperty('--tiltY', '0deg');
+                card.style.setProperty('--shineOpacity', '0');
+            };
+            card.addEventListener('mousemove', onMove);
+            card.addEventListener('mouseleave', onLeave);
+            // На тач-устройствах отключаем наклон, чтобы не мешать скроллу
+            card.addEventListener('touchstart', () => card.classList.add('no-transform'), { passive: true });
+            card.addEventListener('touchend', () => card.classList.remove('no-transform'));
+        });
+    };
+    enableCardTilt();
+
     // --- 10. Ленивая загрузка изображений (через атрибут) ---
     document.querySelectorAll('img').forEach(img => {
         if (!img.hasAttribute('loading')) img.loading = 'lazy';
